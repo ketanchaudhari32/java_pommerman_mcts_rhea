@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/java-pommerman.iml" filepath="$PROJECT_DIR$/java-pommerman.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_pommerman_mcts_rhea.iml" filepath="$PROJECT_DIR$/java_pommerman_mcts_rhea.iml" />
     </modules>
   </component>
 </project>

@@ -24,15 +24,15 @@ public class customRHEAParams implements ParameterSet {
     public int frame_skip_type = SKIP_SEQUENCE;
 
     // EA parameters
-    public int population_size = 1;
-    public int individual_length = 12;
-    public int mcts_depth = 12;
-    public int gene_size = 1;  // Should be a divisor of individual_length. A gene may contain more than 1 action.
-    public int offspring_count = 1;
-    public int no_elites = 1;
+    public int population_size = 20; // 1 -> 20
+    public int individual_length = 20; // 12 -> 20
+    public int mcts_depth = 20; // 12 -> 20
+    public int gene_size = 20;  // Should be a divisor of individual_length. A gene may contain more than 1 action.
+    public int offspring_count = 20;
+    public int no_elites = 20;
     private double tournament_size_perc = 0.4;  // Percent of population that would take part in tournament selection
-    public int mutation_gene_count = 1;
-    public double mutation_rate = 0.3;
+    public int mutation_gene_count = 20;
+    public double mutation_rate = 0.5; //chanegd from 0.3 to 0.5
 
     // Evaluation settings
     public int evaluate_act = EVALUATE_ACT_LAST;
@@ -52,7 +52,7 @@ public class customRHEAParams implements ParameterSet {
 
     // Budget restrictions
     public int budget_type = ITERATION_BUDGET;//FM_BUDGET;
-    public int iteration_budget = 200;
+    public int iteration_budget = 480; //changed from 200 to 480
     public int fm_budget = 2000;
     public int time_budget = 40;
 
