@@ -34,6 +34,8 @@ public class MCTSParams implements ParameterSet {
     public int num_fmcalls = 2000;
     public int num_time = 40;
 
+    public double discount_factor = 0.5;
+
     @Override
     public void setParameterValue(String param, Object value) {
         switch(param) {
