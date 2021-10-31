@@ -25,7 +25,7 @@ public class customRHEAParams implements ParameterSet {
 
     // EA parameters
     public int population_size = 20; // 1 -> 20
-    public int individual_length = 20; // 12 -> 20
+    public int individual_length = 15; // 12 -> 20 -> 15
     public int mcts_depth = 20; // 12 -> 20
     public int gene_size = 20;  // Should be a divisor of individual_length. A gene may contain more than 1 action.
     public int offspring_count = 20;
@@ -42,11 +42,11 @@ public class customRHEAParams implements ParameterSet {
     public boolean reevaluate_pop = true;
 
     // Shift settings
-    public boolean shift_buffer = true;
+    public boolean shift_buffer = false;
 //    public double shift_discount = 0.99;
 
     // MC Rollouts settings
-    public boolean mc_rollouts = false;
+    public boolean mc_rollouts = true;
     private double mc_rollouts_length_perc = 0.5;
     public int mc_rollouts_repeat = 1;
 

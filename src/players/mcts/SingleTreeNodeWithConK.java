@@ -1,4 +1,4 @@
-package players.custom_mcts;
+package players.mcts;
 
 import core.GameState;
 import players.heuristics.AdvancedHeuristic;
@@ -12,12 +12,12 @@ import utils.Vector2d;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class SingleTreeNode1
+public class SingleTreeNodeWithConK
 {
-    public customMCTSParams params;
+    public MCTSParams params;
 
-    private SingleTreeNode1 parent;
-    private SingleTreeNode1[] children;
+    private SingleTreeNodeWithConK parent;
+    private SingleTreeNodeWithConK[] children;
     private double totValue;
     private int nVisits;
     private Random m_rnd;
@@ -25,7 +25,6 @@ public class SingleTreeNode1
     private double[] bounds = new double[]{Double.MAX_VALUE, -Double.MAX_VALUE};
     private int childIdx;
     private int fmCallsCount;
-
 
     private double highest = -1;
     private double lowest = 1;
@@ -35,15 +34,12 @@ public class SingleTreeNode1
 
     private GameState rootState;
     private StateHeuristic rootStateHeuristic;
-    private double totValueSquare;
-    private double rewardMeanSquare;
 
-
-    SingleTreeNode1(customMCTSParams p, Random rnd, int num_actions, Types.ACTIONS[] actions) {
+    SingleTreeNodeWithConK(MCTSParams p, Random rnd, int num_actions, Types.ACTIONS[] actions) {
         this(p, null, -1, rnd, num_actions, actions, 0, null);
     }
 
-    private SingleTreeNode1(customMCTSParams p, SingleTreeNode1 parent, int childIdx, Random rnd, int num_actions,
+    private SingleTreeNodeWithConK(MCTSParams p, SingleTreeNodeWithConK parent, int childIdx, Random rnd, int num_actions,
                            Types.ACTIONS[] actions, int fmCallsCount, StateHeuristic sh) {
         this.params = p;
         this.fmCallsCount = fmCallsCount;
@@ -51,12 +47,8 @@ public class SingleTreeNode1
         this.m_rnd = rnd;
         this.num_actions = num_actions;
         this.actions = actions;
-        children = new SingleTreeNode1[num_actions];
+        children = new SingleTreeNodeWithConK[num_actions];
         totValue = 0.0;
-
-        totValueSquare = 0.0;
-        rewardMeanSquare = 0.0;
-
         this.childIdx = childIdx;
         if(parent != null) {
             m_depth = parent.m_depth + 1;
@@ -90,7 +82,7 @@ public class SingleTreeNode1
 
             GameState state = rootState.copy();
             ElapsedCpuTimer elapsedTimerIteration = new ElapsedCpuTimer();
-            SingleTreeNode1 selected = treePolicy(state); //selection and expansion
+            SingleTreeNodeWithConK selected = treePolicy(state); //selection and expansion
             double delta = selected.rollOut(state); //rollout
             backUp(selected, delta); //backpropagation
 
@@ -113,9 +105,9 @@ public class SingleTreeNode1
         //System.out.println(" ITERS " + numIters);
     }
 
-    private SingleTreeNode1 treePolicy(GameState state) {
+    private SingleTreeNodeWithConK treePolicy(GameState state) {
 
-        SingleTreeNode1 cur = this;
+        SingleTreeNodeWithConK cur = this;
 
         while (!state.isTerminal() && cur.m_depth < params.rollout_depth)
         {
@@ -131,7 +123,7 @@ public class SingleTreeNode1
     }
 
 
-    private SingleTreeNode1 expand(GameState state) {
+    private SingleTreeNodeWithConK expand(GameState state) {
 
         int bestAction = 0;
         double bestValue = -1;
@@ -147,7 +139,7 @@ public class SingleTreeNode1
         //Roll the state
         roll(state, actions[bestAction]);
 
-        SingleTreeNode1 tn = new SingleTreeNode1(params,this,bestAction,this.m_rnd,num_actions,
+        SingleTreeNodeWithConK tn = new SingleTreeNodeWithConK(params,this,bestAction,this.m_rnd,num_actions,
                 actions, fmCallsCount, rootStateHeuristic);
         children[bestAction] = tn;
         return tn;
@@ -175,10 +167,10 @@ public class SingleTreeNode1
 
     }
 
-    private SingleTreeNode1 uct(GameState state) {
-        SingleTreeNode1 selected = null;
+    private SingleTreeNodeWithConK uct(GameState state) {
+        SingleTreeNodeWithConK selected = null;
         double bestValue = -Double.MAX_VALUE;
-        for (SingleTreeNode1 child : this.children)
+        for (SingleTreeNodeWithConK child : this.children)
         {
             double hvVal = child.totValue;
             double childValue =  hvVal / (child.nVisits + params.epsilon);
@@ -186,14 +178,9 @@ public class SingleTreeNode1
             childValue = Utils.normalise(childValue, bounds[0], bounds[1]);
 
             double uctValue = childValue +
-                    (params.K*(highest-lowest) * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon))) + ((rootStateHeuristic.evaluateState(state))/(1 + (child.nVisits + params.epsilon)));
+                    (params.K*(highest-lowest) * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon)));
 
-          //  double uctValue = childValue +
-          //(params.K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon))) *
-          //        Math.min(1/4, ((totValueSquare)/this.nVisits)- rewardMeanSquare  + Math.sqrt(2*Math.log(this.nVisits + 1)/(child.nVisits + params.epsilon)));
-
-
-                    uctValue = Utils.noise(uctValue, params.epsilon, this.m_rnd.nextDouble());     //break ties randomly
+            uctValue = Utils.noise(uctValue, params.epsilon, this.m_rnd.nextDouble());     //break ties randomly
 
             // small sampleRandom numbers: break ties in unexpanded nodes
             if (uctValue > bestValue) {
@@ -206,7 +193,6 @@ public class SingleTreeNode1
             throw new RuntimeException("Warning! returning null: " + bestValue + " : " + this.children.length + " " +
                     + bounds[0] + " " + bounds[1]);
         }
-
 
         highest = (int) Math.max(highest,bestValue);
         lowest = (int) Math.min(lowest, bestValue);
@@ -227,7 +213,7 @@ public class SingleTreeNode1
             thisDepth++;
         }
 
-        return rootStateHeuristic.evaluateState(state);// * Math.pow(params.epsilon, thisDepth);
+        return rootStateHeuristic.evaluateState(state);
     }
 
     private int safeRandomAction(GameState state)
@@ -270,16 +256,13 @@ public class SingleTreeNode1
         return false;
     }
 
-    private void backUp(SingleTreeNode1 node, double result)
+    private void backUp(SingleTreeNodeWithConK node, double result)
     {
-        SingleTreeNode1 n = node;
+        SingleTreeNodeWithConK n = node;
         while(n != null)
         {
             n.nVisits++;
             n.totValue += result;
-            n.totValueSquare += Math.pow(result, 2);
-            n.rewardMeanSquare = Math.pow(n.totValue/n.nVisits, 2);
-
             if (result < n.bounds[0]) {
                 n.bounds[0] = result;
             }
@@ -329,7 +312,7 @@ public class SingleTreeNode1
         return selected;
     }
 
-    int bestAction()
+    private int bestAction()
     {
         int selected = -1;
         double bestValue = -Double.MAX_VALUE;
@@ -357,7 +340,7 @@ public class SingleTreeNode1
 
 
     private boolean notFullyExpanded() {
-        for (SingleTreeNode1 tn : children) {
+        for (SingleTreeNodeWithConK tn : children) {
             if (tn == null) {
                 return true;
             }

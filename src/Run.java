@@ -122,8 +122,8 @@ public class Run {
                     case 5:
                         MCTSParams mctsParams = new MCTSParams();
                         mctsParams.stop_type = mctsParams.STOP_ITERATIONS;
-                        mctsParams.num_iterations = 200;
-                        mctsParams.rollout_depth = 12;
+                        mctsParams.num_iterations = 300;
+                        mctsParams.rollout_depth = 20;
 
                         mctsParams.heuristic_method = mctsParams.CUSTOM_HEURISTIC;
                         p = new MCTSPlayer(seed, playerID++, mctsParams);
@@ -141,11 +141,11 @@ public class Run {
                         break;
                     case 7:
                         customRHEAParams customrheaParams = new customRHEAParams();
-                        customrheaParams.budget_type = customConstants.ITERATION_BUDGET;
-                        customrheaParams.iteration_budget = 200;
-                        customrheaParams.individual_length = 20;
+                        //customrheaParams.budget_type = customConstants.ITERATION_BUDGET;
+                        //customrheaParams.iteration_budget = 200;
+                        //customrheaParams.individual_length = 20;
                         //customrheaParams.heurisic_type = Constants.CUSTOM_HEURISTIC;
-                        customrheaParams.mutation_rate = 0.5;
+                        //customrheaParams.mutation_rate = 0.5;
 
                         p = new customRHEAPlayer(seed, playerID++, customrheaParams);
                         playerStr[i-4] = "customRHEA";

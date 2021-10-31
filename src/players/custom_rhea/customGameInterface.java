@@ -317,6 +317,7 @@ public class customGameInterface {
             }
 
             // Passing null as individual and mutation to perform random rollout
+            //int lastIdx = evaluateRollout(values, first, params.mc_rollouts_length, null, null);
             int lastIdx = evaluateRollout(values, first, params.mc_rollouts_length, null, null);
 
             if (lastIdx < values.length - 1) {

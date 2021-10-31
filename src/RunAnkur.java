@@ -154,6 +154,16 @@ public class RunAnkur {
                         p = new MCTSPlayerWithDecayingReward(seed, playerID++, mctsParams8);
                         playerStr[i-4] = "MCTSPlayerWithDecayingReward";
                         break;
+                    case 9:
+                        MCTSParams mctsParams9 = new MCTSParams();
+                        mctsParams9.stop_type = mctsParams9.STOP_ITERATIONS;
+                        mctsParams9.num_iterations = 200;
+                        mctsParams9.rollout_depth = 12;
+
+                        mctsParams9.heuristic_method = mctsParams9.CUSTOM_HEURISTIC;
+                        p = new MCTSPlayerWithConK(seed, playerID++, mctsParams9);
+                        playerStr[i-4] = "MCTSPlayerWithConK";
+                        break;
                     default:
                         System.out.println("WARNING: Invalid agent ID: " + agentType );
                 }

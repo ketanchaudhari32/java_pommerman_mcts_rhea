@@ -22,8 +22,9 @@ public class customMCTSNode
     private double[] bounds = new double[]{-1, 1};
     private int childIdx;
 
-    private int highest = 1;
-    private int lowest = -1;
+
+    private double highest = -1;
+    private double lowest = 1;
 
     private int num_actions;
     private Types.ACTIONS[] actions;
@@ -134,7 +135,8 @@ public class customMCTSNode
             childValue = Utils.normalise(childValue, bounds[0], bounds[1]);
 
             double uctValue = childValue +
-                    (K*(highest-lowest)) * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + epsilon)) + (stateHeuristic.evaluateState(state)/(1 + (child.nVisits + epsilon)));
+                    (K*(highest-lowest)) * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + epsilon))
+                    + (stateHeuristic.evaluateState(state)/(1 + (child.nVisits + epsilon)));
 
             uctValue = Utils.noise(uctValue, epsilon, this.m_rnd.nextDouble());     //break ties randomly
 
@@ -183,7 +185,7 @@ public class customMCTSNode
 
         //double normDelta = Utils.normalise(delta ,lastBounds[0], lastBounds[1]);
 
-        return delta;
+        return delta * Math.pow(1e-6, thisDepth);
     }
 
     public double value(GameState a_gameState) {
