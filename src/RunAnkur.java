@@ -164,6 +164,16 @@ public class RunAnkur {
                         p = new MCTSPlayerWithConK(seed, playerID++, mctsParams9);
                         playerStr[i-4] = "MCTSPlayerWithConK";
                         break;
+                    case 10:
+                        MCTSParams mctsParams10 = new MCTSParams();
+                        mctsParams10.stop_type = mctsParams10.STOP_ITERATIONS;
+                        mctsParams10.num_iterations = 200;
+                        mctsParams10.rollout_depth = 12;
+
+                        mctsParams10.heuristic_method = mctsParams10.CUSTOM_HEURISTIC;
+                        p = new MCTSPlayerWithBiasKDecay(seed, playerID++, mctsParams10);
+                        playerStr[i-4] = "MCTSPlayerWithBiasKDecay";
+                        break;
                     default:
                         System.out.println("WARNING: Invalid agent ID: " + agentType );
                 }

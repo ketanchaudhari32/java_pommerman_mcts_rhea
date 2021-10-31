@@ -3,17 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="76ad6c99-e5e6-44ce-a364-e331a4998d8c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/Run.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/Run.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/custom_mcts/SingleTreeNode1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/custom_mcts/SingleTreeNode1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/custom_rhea/customGameInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/custom_rhea/customGameInterface.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/custom_rhea/hybrids/customMCTSNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/custom_rhea/hybrids/customMCTSNode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/custom_rhea/utils/customRHEAParams.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/custom_rhea/utils/customRHEAParams.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Run.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Run.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RunAnkur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RunAnkur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/players/custom_mcts/SingleTreeNode1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/custom_mcts/SingleTreeNode1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/players/custom_rhea/customGameInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/custom_rhea/customGameInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/players/custom_rhea/hybrids/customMCTSNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/custom_rhea/hybrids/customMCTSNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/players/custom_rhea/utils/customRHEAParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/custom_rhea/utils/customRHEAParams.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +55,7 @@
     <configuration name="RunAnkur" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="RunAnkur" />
       <module name="java_pommerman_mcts_rhea" />
-      <option name="PROGRAM_PARAMETERS" value="0 3 3 -1 6 7 8 9" />
+      <option name="PROGRAM_PARAMETERS" value="0 3 3 -1 7 8 9 10" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -83,7 +73,7 @@
       <workItem from="1635354742766" duration="5563000" />
       <workItem from="1635365824246" duration="2956000" />
       <workItem from="1635413535863" duration="4666000" />
-      <workItem from="1635679585222" duration="4033000" />
+      <workItem from="1635679585222" duration="5290000" />
     </task>
     <servers />
   </component>
