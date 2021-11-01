@@ -30,11 +30,11 @@ public class MCTSParams implements ParameterSet {
 
     // Budget settings
     public int stop_type = STOP_TIME;
-    public int num_iterations = 200;
-    public int num_fmcalls = 2000;
+    public int num_iterations = 250;
+    public int num_fmcalls = 1500;
     public int num_time = 40;
 
-    public double discount_factor = 0.5;
+    public double discount_factor = epsilon;
 
     @Override
     public void setParameterValue(String param, Object value) {

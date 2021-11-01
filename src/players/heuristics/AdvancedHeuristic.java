@@ -29,7 +29,7 @@ public class AdvancedHeuristic extends StateHeuristic {
         boolean gameOver = gs.isTerminal();
         Types.RESULT win = gs.winner();
 
-        // Compute a score relative to the root's state.
+        // Compute a score relative to the root's   state.
         BoardStats lastBoardState = new BoardStats(gs, this.random);
         double rawScore = rootBoardStats.score(lastBoardState);
 
@@ -72,6 +72,7 @@ public class AdvancedHeuristic extends StateHeuristic {
         //double FACTOR_ADJ_ENEMY = 0.12;
         double FACTOR_NEAREST_POWERUP = 0.05;
         double FACTOR_WOODS = 0.05;
+
 
         // State information
         private Random random;
@@ -425,6 +426,7 @@ public class AdvancedHeuristic extends StateHeuristic {
             return is_stuck;
         }
 
+
         private int getIsAdjacentEnemy(){
             if(this.isAdjacentEnemy == null){
                 this.isAdjacentEnemy = computeIsAdjacentEnemy(this.items, this.dist, this.enemies) ? 1 : 0;
@@ -466,8 +468,10 @@ public class AdvancedHeuristic extends StateHeuristic {
                 if(items.containsKey(enemy.getType())) {
                     ArrayList<Vector2d> items_list = items.get(enemy.getType());
                     for (Vector2d position : items_list) {
-                        if(dist.get(position) < distance)
-                            distance = dist.get(position);
+                        //my code euclidian distance
+                        distance = (int) Math.min(distance, Math.abs(Math.sqrt(Math.pow((myPosition.x-position.x),2)+Math.pow((myPosition.y-position.y),2))));
+                        //if(dist.get(position) < distance)
+                        //    distance = dist.get(position);
                     }
                 }
             }

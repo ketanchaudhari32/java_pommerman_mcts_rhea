@@ -26,6 +26,13 @@ public class SingleTreeNodeWithBias
     private int childIdx;
     private int fmCallsCount;
 
+    //pruning paramas
+    private int k_init = 2;
+    private int param_A = 20;
+    private double param_B = 0.8;
+    private double threshold;
+
+
     private double Vsa;
     private ArrayList<Double> rewards;
 
@@ -210,6 +217,9 @@ public class SingleTreeNodeWithBias
 
     private SingleTreeNodeWithBias uct(GameState state) {
         SingleTreeNodeWithBias selected = null;
+
+
+
         double bestValue = -Double.MAX_VALUE;
         for (SingleTreeNodeWithBias child : this.children)
         {
@@ -225,6 +235,9 @@ public class SingleTreeNodeWithBias
 
             uctValue = Utils.noise(uctValue, params.epsilon, this.m_rnd.nextDouble());     //break ties randomly
 
+
+            //System.out.println(uctValue);
+            //System.out.println(threshold);
             // small sampleRandom numbers: break ties in unexpanded nodes
             if (uctValue > bestValue) {
                 selected = child;
@@ -239,6 +252,8 @@ public class SingleTreeNodeWithBias
 
         //Roll the state:
         roll(state, actions[selected.childIdx]);
+
+        //k_init+=1;
 
         return selected;
     }

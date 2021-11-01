@@ -12,12 +12,12 @@ import utils.Vector2d;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class SingleTreeNodeWithVariance
+public class SingleTreeNodeWithVarianceKDecay
 {
     public MCTSParams params;
 
-    private SingleTreeNodeWithVariance parent;
-    private SingleTreeNodeWithVariance[] children;
+    private SingleTreeNodeWithVarianceKDecay parent;
+    private SingleTreeNodeWithVarianceKDecay[] children;
     private double totValue;
     private int nVisits;
     private Random m_rnd;
@@ -26,8 +26,8 @@ public class SingleTreeNodeWithVariance
     private int childIdx;
     private int fmCallsCount;
 
-    private double totValueSquare;
-    private double rewardMeanSquare;
+    private double highest = -1;
+    private double lowest = 1;
 
     private double Vsa;
     private ArrayList<Double> rewards;
@@ -37,12 +37,14 @@ public class SingleTreeNodeWithVariance
 
     private GameState rootState;
     private StateHeuristic rootStateHeuristic;
+    private double totValueSquare;
+    private double rewardMeanSquare;
 
-    SingleTreeNodeWithVariance(MCTSParams p, Random rnd, int num_actions, Types.ACTIONS[] actions) {
+    SingleTreeNodeWithVarianceKDecay(MCTSParams p, Random rnd, int num_actions, Types.ACTIONS[] actions) {
         this(p, null, -1, rnd, num_actions, actions, 0, null);
     }
 
-    private SingleTreeNodeWithVariance(MCTSParams p, SingleTreeNodeWithVariance parent, int childIdx, Random rnd, int num_actions,
+    private SingleTreeNodeWithVarianceKDecay(MCTSParams p, SingleTreeNodeWithVarianceKDecay parent, int childIdx, Random rnd, int num_actions,
                                        Types.ACTIONS[] actions, int fmCallsCount, StateHeuristic sh) {
         this.params = p;
         this.fmCallsCount = fmCallsCount;
@@ -50,7 +52,7 @@ public class SingleTreeNodeWithVariance
         this.m_rnd = rnd;
         this.num_actions = num_actions;
         this.actions = actions;
-        children = new SingleTreeNodeWithVariance[num_actions];
+        children = new SingleTreeNodeWithVarianceKDecay[num_actions];
         totValue = 0.0;
         this.childIdx = childIdx;
         if(parent != null) {
@@ -85,7 +87,7 @@ public class SingleTreeNodeWithVariance
 
             GameState state = rootState.copy();
             ElapsedCpuTimer elapsedTimerIteration = new ElapsedCpuTimer();
-            SingleTreeNodeWithVariance selected = treePolicy(state);
+            SingleTreeNodeWithVarianceKDecay selected = treePolicy(state);
             double delta = selected.rollOut(state);
             backUp(selected, delta);
 
@@ -108,9 +110,9 @@ public class SingleTreeNodeWithVariance
         //System.out.println(" ITERS " + numIters);
     }
 
-    private SingleTreeNodeWithVariance treePolicy(GameState state) {
+    private SingleTreeNodeWithVarianceKDecay treePolicy(GameState state) {
 
-        SingleTreeNodeWithVariance cur = this;
+        SingleTreeNodeWithVarianceKDecay cur = this;
 
         while (!state.isTerminal() && cur.m_depth < params.rollout_depth)
         {
@@ -140,7 +142,7 @@ public class SingleTreeNodeWithVariance
     }
 
 
-    private SingleTreeNodeWithVariance expand(GameState state) {
+    private SingleTreeNodeWithVarianceKDecay expand(GameState state) {
 
         int bestAction = 0;
         double bestValue = -1;
@@ -156,7 +158,7 @@ public class SingleTreeNodeWithVariance
         //Roll the state
         roll(state, actions[bestAction]);
 
-        SingleTreeNodeWithVariance tn = new SingleTreeNodeWithVariance(params,this,bestAction,this.m_rnd,num_actions,
+        SingleTreeNodeWithVarianceKDecay tn = new SingleTreeNodeWithVarianceKDecay(params,this,bestAction,this.m_rnd,num_actions,
                 actions, fmCallsCount, rootStateHeuristic);
         children[bestAction] = tn;
         return tn;
@@ -210,10 +212,10 @@ public class SingleTreeNodeWithVariance
 
 
 
-    private SingleTreeNodeWithVariance uct(GameState state) {
-        SingleTreeNodeWithVariance selected = null;
+    private SingleTreeNodeWithVarianceKDecay uct(GameState state) {
+        SingleTreeNodeWithVarianceKDecay selected = null;
         double bestValue = -Double.MAX_VALUE;
-        for (SingleTreeNodeWithVariance child : this.children)
+        for (SingleTreeNodeWithVarianceKDecay child : this.children)
         {
             double hvVal = child.totValue;
             double childValue =  hvVal / (child.nVisits + params.epsilon);
@@ -224,9 +226,7 @@ public class SingleTreeNodeWithVariance
             double uctValue = childValue +
                     params.K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon) *
                             Math.min(1/4, ((totValueSquare)/this.nVisits)- rewardMeanSquare  + Math.sqrt(2*Math.log(this.nVisits + 1)/(child.nVisits + params.epsilon))));
-                            //Math.min(1/4, child.Vsa));
-
-                    //+ heurisitic/(1 + child.nVisits + params.epsilon);
+            //Math.min(1/4, child.Vsa));
 
             uctValue = Utils.noise(uctValue, params.epsilon, this.m_rnd.nextDouble());     //break ties randomly
 
@@ -241,6 +241,11 @@ public class SingleTreeNodeWithVariance
             throw new RuntimeException("Warning! returning null: " + bestValue + " : " + this.children.length + " " +
                     + bounds[0] + " " + bounds[1]);
         }
+
+
+        highest = (int) Math.max(highest,bestValue);
+        lowest = (int) Math.min(lowest, bestValue);
+
 
         //Roll the state:
         roll(state, actions[selected.childIdx]);
@@ -260,7 +265,7 @@ public class SingleTreeNodeWithVariance
 
         double reward = rootStateHeuristic.evaluateState(state);
         //Decaying reward
-        //reward = reward * Math.pow(params.discount_factor, thisDepth);
+        reward = reward * Math.pow(0.99, thisDepth);
         return reward;
     }
 
@@ -304,9 +309,9 @@ public class SingleTreeNodeWithVariance
         return false;
     }
 
-    private void backUp(SingleTreeNodeWithVariance node, double result)
+    private void backUp(SingleTreeNodeWithVarianceKDecay node, double result)
     {
-        SingleTreeNodeWithVariance n = node;
+        SingleTreeNodeWithVarianceKDecay n = node;
         while(n != null)
         {
             n.nVisits++;
@@ -397,7 +402,7 @@ public class SingleTreeNodeWithVariance
     }
 
     private boolean notFullyExpanded() {
-        for (SingleTreeNodeWithVariance tn : children) {
+        for (SingleTreeNodeWithVarianceKDecay tn : children) {
             if (tn == null) {
                 return true;
             }
