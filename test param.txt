@@ -1,0 +1,59 @@
+FFA_MCTS-VAR_MCTS-Bias_MCTS-VARprun_MCTS-BiasPruning_Observability_2
+0 10 5 2 5 6 7 12 13
+
+
+
+FFA_MCTS-VAR_MCTS-Bias_MCTS-VARprun_MCTS-BiasPruning_Observability -1
+0 10 5 -1 6 7 12 13
+
+FFA_MCTS-VAR_MCTS-Bias_MCTS-VARprun_MCTS-BiasPruning_Observability 0
+0 10 5 0 6 7 12 13
+
+FFA_MCTS-VAR_MCTS-Bias_MCTS-VARprun_MCTS-BiasPruning_Observability 1
+0 10 5 1 6 7 12 13
+
+
+
+
+
+TEAM_[MCTS-VAR_MCTS-Bias]_[MCTS-VARprun_MCTS-BiasPruning]_Observability_-1
+1 10 5 -1 6-7 12-13
+
+TEAM_[MCTS-VAR_MCTS-VARprun]_[MCTS-Bias_MCTS-BiasPruning]_Observability_-1
+1 10 5 -1 6-13 7-12
+
+TEAM_[MCTS-VAR_MCTS-VAR]_[MCTS-Bias_MCTS-Bias]_Observability_-1
+1 10 5 -1 7-7 6-6
+
+TEAM_[MCTS-VARprun_MCTS-VARprun]_[MCTS-BiasPruning_MCTS-BiasPruning]_Observability_-1
+1 10 5 -1 13-13 12-12
+
+
+
+
+TEAM_[MCTS-VAR_MCTS-Bias]_[MCTS-VARprun_MCTS-BiasPruning]_Observability_2
+1 10 5 2 6-7 12-13
+
+TEAM_[MCTS-VAR_MCTS-VARprun]_[MCTS-Bias_MCTS-BiasPruning]_Observability_2
+1 10 5 2 6-13 7-12
+
+TEAM_[MCTS-VAR_MCTS-VAR]_[MCTS-Bias_MCTS-Bias]_Observability_2
+1 10 5 2 7-7 6-6
+
+TEAM_[MCTS-VARprun_MCTS-VARprun]_[MCTS-BiasPruning_MCTS-BiasPruning]_Observability_2
+1 10 5 2 13-13 12-12
+
+
+
+
+TEAM_[MCTS-VAR_MCTS-Bias]_[MCTS-VARprun_MCTS-BiasPruning]_Observability_0
+1 10 5 0 6-7 12-13
+
+TEAM_[MCTS-VAR_MCTS-VARprun]_[MCTS-Bias_MCTS-BiasPruning]_Observability_0
+1 10 5 0 6-13 7-12
+
+TEAM_[MCTS-VAR_MCTS-VAR]_[MCTS-Bias_MCTS-Bias]_Observability_0
+1 10 5 0 7-7 6-6
+
+TEAM_[MCTS-VARprun_MCTS-VARprun]_[MCTS-BiasPruning_MCTS-BiasPruning]_Observability_0
+1 10 5 0 13-13 12-12

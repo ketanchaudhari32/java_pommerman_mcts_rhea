@@ -12,8 +12,7 @@ import utils.Vector2d;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class SingleTreeNodeWithBiasPrunning
-{
+public class SingleTreeNodeWithBiasPrunning {
     public MCTSParams params;
 
     private SingleTreeNodeWithBiasPrunning parent;
@@ -26,14 +25,13 @@ public class SingleTreeNodeWithBiasPrunning
     private int childIdx;
     private int fmCallsCount;
 
-    //pruning paramas
 
-    private int param_A = 20;
-    private double param_B = 0.8;
+    //pruning
     private double threshold;
     private boolean pruned;
 
-    private ArrayList<SingleTreeNodeWithBiasPrunning> prunned_nodes ;
+
+    //private ArrayList<SingleTreeNodeWithBiasPrunning> prunned_nodes;
 
 
     private double Vsa;
@@ -50,7 +48,7 @@ public class SingleTreeNodeWithBiasPrunning
     }
 
     private SingleTreeNodeWithBiasPrunning(MCTSParams p, SingleTreeNodeWithBiasPrunning parent, int childIdx, Random rnd, int num_actions,
-                                   Types.ACTIONS[] actions, int fmCallsCount, StateHeuristic sh) {
+                                           Types.ACTIONS[] actions, int fmCallsCount, StateHeuristic sh) {
         this.params = p;
         this.fmCallsCount = fmCallsCount;
         this.parent = parent;
@@ -60,16 +58,14 @@ public class SingleTreeNodeWithBiasPrunning
         children = new SingleTreeNodeWithBiasPrunning[num_actions];
         totValue = 0.0;
         this.childIdx = childIdx;
-        if(parent != null) {
+        if (parent != null) {
             m_depth = parent.m_depth + 1;
             this.rootStateHeuristic = sh;
-        }
-        else
+        } else
             m_depth = 0;
     }
 
-    void setRootGameState(GameState gs)
-    {
+    void setRootGameState(GameState gs) {
         this.rootState = gs;
         if (params.heuristic_method == params.CUSTOM_HEURISTIC)
             this.rootStateHeuristic = new CustomHeuristic(gs);
@@ -88,27 +84,26 @@ public class SingleTreeNodeWithBiasPrunning
         int remainingLimit = 5;
         boolean stop = false;
 
-        while(!stop){
+        while (!stop) {
 
             GameState state = rootState.copy();
             ElapsedCpuTimer elapsedTimerIteration = new ElapsedCpuTimer();
-            SingleTreeNodeWithBiasPrunning selected = treePolicy(state,numIters);
+            SingleTreeNodeWithBiasPrunning selected = treePolicy(state, numIters);
             double delta = selected.rollOut(state);
             backUp(selected, delta);
 
             //Stopping condition
-            if(params.stop_type == params.STOP_TIME) {
+            if (params.stop_type == params.STOP_TIME) {
                 numIters++;
-                acumTimeTaken += (elapsedTimerIteration.elapsedMillis()) ;
-                avgTimeTaken  = acumTimeTaken/numIters;
+                acumTimeTaken += (elapsedTimerIteration.elapsedMillis());
+                avgTimeTaken = acumTimeTaken / numIters;
                 remaining = elapsedTimer.remainingTimeMillis();
                 stop = remaining <= 2 * avgTimeTaken || remaining <= remainingLimit;
-            }else if(params.stop_type == params.STOP_ITERATIONS) {
+            } else if (params.stop_type == params.STOP_ITERATIONS) {
                 numIters++;
                 stop = numIters >= params.num_iterations;
-            }else if(params.stop_type == params.STOP_FMCALLS)
-            {
-                fmCallsCount+=params.rollout_depth;
+            } else if (params.stop_type == params.STOP_FMCALLS) {
+                fmCallsCount += params.rollout_depth;
                 stop = (fmCallsCount + params.rollout_depth) > params.num_fmcalls;
             }
         }
@@ -119,8 +114,7 @@ public class SingleTreeNodeWithBiasPrunning
 
         SingleTreeNodeWithBiasPrunning cur = this;
 
-        while (!state.isTerminal() && cur.m_depth < params.rollout_depth)
-        {
+        while (!state.isTerminal() && cur.m_depth < params.rollout_depth) {
             if (cur.notFullyExpanded()) {
 
                 // TODO:Implement First Play Urgency
@@ -128,7 +122,7 @@ public class SingleTreeNodeWithBiasPrunning
                 return cur.expand(state);
 
             } else {
-                cur = cur.uct(state,numIters);
+                cur = cur.uct(state, numIters);
             }
         }
 
@@ -164,25 +158,22 @@ public class SingleTreeNodeWithBiasPrunning
         //Roll the state
         roll(state, actions[bestAction]);
 
-        SingleTreeNodeWithBiasPrunning tn = new SingleTreeNodeWithBiasPrunning(params,this,bestAction,this.m_rnd,num_actions,
+        SingleTreeNodeWithBiasPrunning tn = new SingleTreeNodeWithBiasPrunning(params, this, bestAction, this.m_rnd, num_actions,
                 actions, fmCallsCount, rootStateHeuristic);
         children[bestAction] = tn;
         return tn;
     }
 
-    private void roll(GameState gs, Types.ACTIONS act)
-    {
+    private void roll(GameState gs, Types.ACTIONS act) {
         //Simple, all random first, then my position.
         int nPlayers = 4;
         Types.ACTIONS[] actionsAll = new Types.ACTIONS[4];
         int playerId = gs.getPlayerId() - Types.TILETYPE.AGENT0.getKey();
 
-        for(int i = 0; i < nPlayers; ++i)
-        {
-            if(playerId == i)
-            {
+        for (int i = 0; i < nPlayers; ++i) {
+            if (playerId == i) {
                 actionsAll[i] = act;
-            }else {
+            } else {
                 int actionIdx = m_rnd.nextInt(gs.nActions());
                 actionsAll[i] = Types.ACTIONS.all().get(actionIdx);
             }
@@ -193,107 +184,88 @@ public class SingleTreeNodeWithBiasPrunning
     }
 
 
-
-
     private SingleTreeNodeWithBiasPrunning uct(GameState state, int numIters) {
         SingleTreeNodeWithBiasPrunning selected = null;
+        double bestValue = -Double.MAX_VALUE;
 
         //progressive unpruning
-        //threshold = (param_A*(Math.pow(param_B,k_init)));
+        threshold = (params.param_A * (Math.pow(params.param_B, params.k_init)));
+
 
         HashMap<SingleTreeNodeWithBiasPrunning, Double> child_rewards = new HashMap<>();
+        Map<SingleTreeNodeWithBiasPrunning, Double> sortedMap = child_rewards;
 
-        if(numIters>100){
+        if (numIters > threshold) {
             System.out.println(numIters);
-        for(SingleTreeNodeWithBiasPrunning child : this.children) {
+            for (SingleTreeNodeWithBiasPrunning child : this.children) {
                 //rewards
                 child_rewards.put(child, child.totValue);
             }
 
 
             //sort them
-            Map<SingleTreeNodeWithBiasPrunning, Double> sortedMap =
-                    child_rewards.entrySet().stream()
-                            .sorted(Map.Entry.comparingByValue())
-                            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                                    (e1, e2) -> e1, LinkedHashMap::new));
+            sortedMap = child_rewards.entrySet().stream()
+                    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                            (e1, e2) -> e1, LinkedHashMap::new));
 
             //find the n least reward children
             int index = 0;
-            //sortedMap.forEach((key, value) -> {
-            //    if(index>k_init){
-            //        prunned_nodes.add(key);
-            //    }
-            //});
 
             for (SingleTreeNodeWithBiasPrunning key : sortedMap.keySet()) {
-                if(index<params.k_init){
-                            key.pruned=true;
-                        }
-                else{
+                if (index > params.k_init) {
+                    //mark each of them pruned=true
+                    key.pruned = true;
+                    //sortedMap.remove(key);
+
+                } else {
                     key.pruned = false;
                 }
                 index++;
             }
 
-
+            params.k_init += 1;
             //list of least reward children.
         }
 
 
-        //mark each of them pruned=true
+        for (SingleTreeNodeWithBiasPrunning child : this.children) {
+            if (!child.pruned) {
+                double hvVal = child.totValue;
+                double childValue = hvVal / (child.nVisits + params.epsilon);
 
+                childValue = Utils.normalise(childValue, bounds[0], bounds[1]);
 
+                double heurisitic = rootStateHeuristic.evaluateState(state);
+                double uctValue = childValue +
+                        params.K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon)) // * Math.min(1/4, child.Vsa)
+                        + heurisitic / (1 + child.nVisits + params.epsilon);
 
-        double bestValue = -Double.MAX_VALUE;
-        for (SingleTreeNodeWithBiasPrunning child : this.children)
-        {
-            if(!child.pruned){
-            double hvVal = child.totValue;
-            double childValue =  hvVal / (child.nVisits + params.epsilon);
+                uctValue = Utils.noise(uctValue, params.epsilon, this.m_rnd.nextDouble());     //break ties randomly
 
-            childValue = Utils.normalise(childValue, bounds[0], bounds[1]);
-
-            double heurisitic = rootStateHeuristic.evaluateState(state);
-            double uctValue = childValue +
-                    params.K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon)) // * Math.min(1/4, child.Vsa)
-                    + heurisitic/(1 + child.nVisits + params.epsilon);
-
-            uctValue = Utils.noise(uctValue, params.epsilon, this.m_rnd.nextDouble());     //break ties randomly
-
-            //current_nodes.put(state,uctValue);
-
-
-            //System.out.println(uctValue);
-            //System.out.println(threshold);
-            // small sampleRandom numbers: break ties in unexpanded nodes
-            if (uctValue > bestValue) {
-                selected = child;
-                bestValue = uctValue;
-            }
+                if (uctValue > bestValue) {
+                    selected = child;
+                    bestValue = uctValue;
+                }
 
             }
 
         }
-        if (selected == null)
-        {
+        if (selected == null) {
             throw new RuntimeException("Warning! returning null: " + bestValue + " : " + this.children.length + " " +
-                    + bounds[0] + " " + bounds[1]);
+                    +bounds[0] + " " + bounds[1]);
         }
 
         //Roll the state:
         roll(state, actions[selected.childIdx]);
 
-        //k_init +=1;
-
         return selected;
     }
 
-    private double rollOut(GameState state)
-    {
+    private double rollOut(GameState state) {
         int thisDepth = this.m_depth;
 
-        while (!finishRollout(state,thisDepth)) {
+        while (!finishRollout(state, thisDepth)) {
             int action = safeRandomAction(state);
             roll(state, actions[action]);
             thisDepth++;
@@ -304,14 +276,13 @@ public class SingleTreeNodeWithBiasPrunning
         return reward;
     }
 
-    private int safeRandomAction(GameState state)
-    {
+    private int safeRandomAction(GameState state) {
         Types.TILETYPE[][] board = state.getBoard();
         ArrayList<Types.ACTIONS> actionsToTry = Types.ACTIONS.all();
         int width = board.length;
         int height = board[0].length;
 
-        while(actionsToTry.size() > 0) {
+        while (actionsToTry.size() > 0) {
 
             int nAction = m_rnd.nextInt(actionsToTry.size());
             Types.ACTIONS act = actionsToTry.get(nAction);
@@ -322,7 +293,7 @@ public class SingleTreeNodeWithBiasPrunning
             int y = pos.y + dir.y;
 
             if (x >= 0 && x < width && y >= 0 && y < height)
-                if(board[y][x] != Types.TILETYPE.FLAMES)
+                if (board[y][x] != Types.TILETYPE.FLAMES)
                     return nAction;
 
             actionsToTry.remove(nAction);
@@ -333,8 +304,7 @@ public class SingleTreeNodeWithBiasPrunning
     }
 
     @SuppressWarnings("RedundantIfStatement")
-    private boolean finishRollout(GameState rollerState, int depth)
-    {
+    private boolean finishRollout(GameState rollerState, int depth) {
         if (depth >= params.rollout_depth)      //rollout end condition.
             return true;
 
@@ -344,16 +314,14 @@ public class SingleTreeNodeWithBiasPrunning
         return false;
     }
 
-    private void backUp(SingleTreeNodeWithBiasPrunning node, double result)
-    {
+    private void backUp(SingleTreeNodeWithBiasPrunning node, double result) {
         SingleTreeNodeWithBiasPrunning n = node;
-        while(n != null)
-        {
+        while (n != null) {
             n.nVisits++;
             n.totValue += result;
 
             // Add the rewards to a list for variance calculation
-            if(null == rewards) {
+            if (null == rewards) {
                 rewards = new ArrayList<>();
             }
             rewards.add(result);
@@ -369,14 +337,13 @@ public class SingleTreeNodeWithBiasPrunning
     }
 
 
-    private int bestAction()
-    {
+    private int bestAction() {
         int selected = -1;
         double bestValue = -Double.MAX_VALUE;
 
-        for (int i=0; i<children.length; i++) {
+        for (int i = 0; i < children.length; i++) {
 
-            if(children[i] != null) {
+            if (children[i] != null) {
                 double childValue = children[i].totValue / (children[i].nVisits + params.epsilon);
                 childValue = Utils.noise(childValue, params.epsilon, this.m_rnd.nextDouble());     //break ties randomly
                 if (childValue > bestValue) {
@@ -386,8 +353,7 @@ public class SingleTreeNodeWithBiasPrunning
             }
         }
 
-        if (selected == -1)
-        {
+        if (selected == -1) {
             System.out.println("Unexpected selection!");
             selected = 0;
         }
@@ -402,14 +368,12 @@ public class SingleTreeNodeWithBiasPrunning
         boolean allEqual = true;
         double first = -1;
 
-        for (int i=0; i<children.length; i++) {
+        for (int i = 0; i < children.length; i++) {
 
-            if(children[i] != null)
-            {
-                if(first == -1)
+            if (children[i] != null) {
+                if (first == -1)
                     first = children[i].nVisits;
-                else if(first != children[i].nVisits)
-                {
+                else if (first != children[i].nVisits) {
                     allEqual = false;
                 }
 
@@ -422,11 +386,9 @@ public class SingleTreeNodeWithBiasPrunning
             }
         }
 
-        if (selected == -1)
-        {
+        if (selected == -1) {
             selected = 0;
-        }else if(allEqual)
-        {
+        } else if (allEqual) {
             //If all are equal, we opt to choose for the one with the best Q.
             selected = bestAction();
         }
@@ -443,7 +405,6 @@ public class SingleTreeNodeWithBiasPrunning
 
         return false;
     }
-
 
 
 }

@@ -37,7 +37,11 @@ public class MCTSParams implements ParameterSet {
 
     public double discount_factor = 0.5;
 
-    public int k_init = 3;
+    //pruning paramas
+    public int k_init = 4;
+    public int param_A = 50;
+    public double param_B = 1.3;
+
 
     @Override
     public void setParameterValue(String param, Object value) {

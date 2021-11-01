@@ -12,8 +12,7 @@ import static utils.Types.VISUALS;
 
 public class RunAnkur {
 
-    private static void printHelp()
-    {
+    private static void printHelp() {
         System.out.println("Usage: java Run [args]");
         System.out.println("\t [arg index = 0] Game Mode. 0: FFA; 1: TEAM");
         System.out.println("\t [arg index = 1] Number of level generation seeds. \"-1\" to execute with the ones from paper (20).");
@@ -31,10 +30,10 @@ public class RunAnkur {
     public static void main(String[] args) {
 
         //default
-        if(args.length == 0)
+        if (args.length == 0)
             args = new String[]{"0", "1", "1", "-1", "2", "3", "4", "5"};
 
-        if(args.length != 8) {
+        if (args.length != 8) {
             printHelp();
             return;
         }
@@ -49,7 +48,7 @@ public class RunAnkur {
             int boardSize = Types.BOARD_SIZE;
 
             Types.GAME_MODE gMode = Types.GAME_MODE.FFA;
-            if(Integer.parseInt(args[0]) == 1)
+            if (Integer.parseInt(args[0]) == 1)
                 gMode = Types.GAME_MODE.TEAM;
 
             int S = Integer.parseInt(args[1]);
@@ -58,19 +57,17 @@ public class RunAnkur {
 
             long seeds[];
 
-            if (S == -1)
-            {
+            if (S == -1) {
                 //Special case, these seeds are fixed for the experiments in the paper:
-                seeds = new long[] {93988, 19067, 64416, 83884, 55636, 27599, 44350, 87872, 40815,
+                seeds = new long[]{93988, 19067, 64416, 83884, 55636, 27599, 44350, 87872, 40815,
                         11772, 58367, 17546, 75375, 75772, 58237, 30464, 27180, 23643, 67054, 19508};
-            }else
-            {
-                if(S <= 0)
+            } else {
+                if (S <= 0)
                     S = 1;
 
                 //Otherwise, all seeds are random
                 seeds = new long[S];
-                for(int i = 0; i < S; i++)
+                for (int i = 0; i < S; i++)
                     seeds[i] = rnd.nextInt(100000);
             }
 
@@ -78,27 +75,27 @@ public class RunAnkur {
 
             String[] playerStr = new String[4];
 
-            for(int i = 4; i <= 7; ++i) {
+            for (int i = 4; i <= 7; ++i) {
                 int agentType = Integer.parseInt(args[i]);
                 Player p = null;
 
 
-                switch(agentType) {
+                switch (agentType) {
                     case 0:
                         p = new DoNothingPlayer(playerID++);
-                        playerStr[i-4] = "DoNothing";
+                        playerStr[i - 4] = "DoNothing";
                         break;
                     case 1:
                         p = new RandomPlayer(seed, playerID++);
-                        playerStr[i-4] = "Random";
+                        playerStr[i - 4] = "Random";
                         break;
                     case 2:
                         p = new OSLAPlayer(seed, playerID++);
-                        playerStr[i-4] = "OSLA";
+                        playerStr[i - 4] = "OSLA";
                         break;
                     case 3:
                         p = new SimplePlayer(seed, playerID++);
-                        playerStr[i-4] = "RuleBased";
+                        playerStr[i - 4] = "RuleBased";
                         break;
                     case 4:
                         RHEAParams rheaParams = new RHEAParams();
@@ -109,7 +106,7 @@ public class RunAnkur {
                         rheaParams.mutation_rate = 0.5;
 
                         p = new RHEAPlayer(seed, playerID++, rheaParams);
-                        playerStr[i-4] = "RHEA";
+                        playerStr[i - 4] = "RHEA";
                         break;
                     case 5:
                         MCTSParams mctsParams = new MCTSParams();
@@ -119,7 +116,7 @@ public class RunAnkur {
 
                         mctsParams.heuristic_method = mctsParams.ADVANCED_HEURISTIC;
                         p = new MCTSPlayer(seed, playerID++, mctsParams);
-                        playerStr[i-4] = "MCTS";
+                        playerStr[i - 4] = "MCTS";
                         break;
 
                     case 6:
@@ -130,7 +127,7 @@ public class RunAnkur {
 
                         mctsParams6.heuristic_method = mctsParams6.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithVariance(seed, playerID++, mctsParams6);
-                        playerStr[i-4] = "MCTSPlayerWithVariance";
+                        playerStr[i - 4] = "MCTSPlayerWithVariance";
                         break;
 
                     case 7:
@@ -141,7 +138,7 @@ public class RunAnkur {
 
                         mctsParams7.heuristic_method = mctsParams7.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithBias(seed, playerID++, mctsParams7);
-                        playerStr[i-4] = "MCTSPlayerWithBias";
+                        playerStr[i - 4] = "MCTSPlayerWithBias";
                         break;
 
                     case 8:
@@ -152,7 +149,7 @@ public class RunAnkur {
 
                         mctsParams8.heuristic_method = mctsParams8.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithDecayingReward(seed, playerID++, mctsParams8);
-                        playerStr[i-4] = "MCTSPlayerWithDecayingReward";
+                        playerStr[i - 4] = "MCTSPlayerWithDecayingReward";
                         break;
                     case 9:
                         MCTSParams mctsParams9 = new MCTSParams();
@@ -162,7 +159,7 @@ public class RunAnkur {
 
                         mctsParams9.heuristic_method = mctsParams9.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithConK(seed, playerID++, mctsParams9);
-                        playerStr[i-4] = "MCTSPlayerWithConK";
+                        playerStr[i - 4] = "MCTSPlayerWithConK";
                         break;
                     case 10:
                         MCTSParams mctsParams10 = new MCTSParams();
@@ -172,7 +169,7 @@ public class RunAnkur {
 
                         mctsParams10.heuristic_method = mctsParams10.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithBiasKDecay(seed, playerID++, mctsParams10);
-                        playerStr[i-4] = "MCTSPlayerWithBiasKDecay";
+                        playerStr[i - 4] = "MCTSPlayerWithBiasKDecay";
                         break;
                     case 11:
                         MCTSParams mctsParams11 = new MCTSParams();
@@ -182,7 +179,7 @@ public class RunAnkur {
 
                         mctsParams11.heuristic_method = mctsParams11.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithBiasKDecay(seed, playerID++, mctsParams11);
-                        playerStr[i-4] = "MCTSPlayerWithvarianceKDecay";
+                        playerStr[i - 4] = "MCTSPlayerWithvarianceKDecay";
                     case 12:
                         MCTSParams mctsParams12 = new MCTSParams();
                         mctsParams12.stop_type = mctsParams12.STOP_ITERATIONS;
@@ -191,7 +188,7 @@ public class RunAnkur {
 
                         mctsParams12.heuristic_method = mctsParams12.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithBiasPrunning(seed, playerID++, mctsParams12);
-                        playerStr[i-4] = "MCTSPlayerWithBiasPrunning";
+                        playerStr[i - 4] = "MCTSPlayerWithBiasPrunning";
                         break;
                     case 13:
                         MCTSParams mctsParams13 = new MCTSParams();
@@ -201,21 +198,21 @@ public class RunAnkur {
 
                         mctsParams13.heuristic_method = mctsParams13.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithVariancePrunning(seed, playerID++, mctsParams13);
-                        playerStr[i-4] = "MCTSPlayerWithBiasPrunning";
+                        playerStr[i - 4] = "MCTSPlayerWithVariancePrunning";
                         break;
 
                     default:
-                        System.out.println("WARNING: Invalid agent ID: " + agentType );
+                        System.out.println("WARNING: Invalid agent ID: " + agentType);
                 }
 
                 players.add(p);
             }
 
             String gameIdStr = "";
-            for(int i = 0; i <= 7; ++i) {
+            for (int i = 0; i <= 7; ++i) {
                 gameIdStr += args[i];
-                if(i != 7)
-                    gameIdStr+="-";
+                if (i != 7)
+                    gameIdStr += "-";
             }
 
             Game game = new Game(seeds[0], boardSize, gMode, gameIdStr);
@@ -225,16 +222,16 @@ public class RunAnkur {
             game.setPlayers(players);
 
             System.out.print(gameIdStr + " [");
-            for(int i = 0; i < playerStr.length; ++i) {
+            for (int i = 0; i < playerStr.length; ++i) {
                 System.out.print(playerStr[i]);
-                if(i != playerStr.length-1)
+                if (i != playerStr.length - 1)
                     System.out.print(',');
 
             }
             System.out.println("]");
 
             runGames(game, seeds, N, false);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             printHelp();
         }
@@ -242,9 +239,10 @@ public class RunAnkur {
 
     /**
      * Runs 1 game.
-     * @param g - game to run
-     * @param ki1 - primary key controller
-     * @param ki2 - secondary key controller
+     *
+     * @param g               - game to run
+     * @param ki1             - primary key controller
+     * @param ki2             - secondary key controller
      * @param separateThreads - if separate threads should be used for the agents or not.
      */
     public static void runGame(Game g, KeyController ki1, KeyController ki2, boolean separateThreads) {
@@ -262,7 +260,7 @@ public class RunAnkur {
         g.run(frame, wi, separateThreads);
     }
 
-    public static void runGames(Game g, long seeds[], int repetitions, boolean useSeparateThreads){
+    public static void runGames(Game g, long seeds[], int repetitions, boolean useSeparateThreads) {
         int numPlayers = g.getPlayers().size();
         int[] winCount = new int[numPlayers];
         int[] tieCount = new int[numPlayers];
@@ -273,13 +271,13 @@ public class RunAnkur {
         int numSeeds = seeds.length;
         int totalNgames = numSeeds * repetitions;
 
-        for(int s = 0; s<numSeeds; s++) {
+        for (int s = 0; s < numSeeds; s++) {
             long seed = seeds[s];
 
             for (int i = 0; i < repetitions; i++) {
                 long playerSeed = System.currentTimeMillis();
 
-                System.out.print( playerSeed + ", " + seed + ", " + (s*repetitions + i) + "/" + totalNgames + ", ");
+                System.out.print(playerSeed + ", " + seed + ", " + (s * repetitions + i) + "/" + totalNgames + ", ");
 
                 g.reset(seed);
                 EventsStatistics.REP = i;
@@ -307,7 +305,7 @@ public class RunAnkur {
                 }
 
                 int[] overtimes = g.getPlayerOvertimes();
-                for(int j = 0; j < overtimes.length; ++j)
+                for (int j = 0; j < overtimes.length; ++j)
                     overtimeCount[j] += overtimes[j];
 
             }
@@ -318,12 +316,12 @@ public class RunAnkur {
         for (int pIdx = 0; pIdx < numPlayers; pIdx++) {
             String player = g.getPlayers().get(pIdx).getClass().toString().replaceFirst("class ", "");
 
-            double winPerc = winCount[pIdx] * 100.0 / (double)totalNgames;
-            double tiePerc = tieCount[pIdx] * 100.0 / (double)totalNgames;
-            double lossPerc = lossCount[pIdx] * 100.0 / (double)totalNgames;
-            double overtimesAvg = overtimeCount[pIdx] / (double)totalNgames;
+            double winPerc = winCount[pIdx] * 100.0 / (double) totalNgames;
+            double tiePerc = tieCount[pIdx] * 100.0 / (double) totalNgames;
+            double lossPerc = lossCount[pIdx] * 100.0 / (double) totalNgames;
+            double overtimesAvg = overtimeCount[pIdx] / (double) totalNgames;
 
-            System.out.println(totalNgames + "\t" + winPerc + "%\t" + tiePerc + "%\t" + lossPerc + "%\t" + player + " (" + overtimesAvg + ")" );
+            System.out.println(totalNgames + "\t" + winPerc + "%\t" + tiePerc + "%\t" + lossPerc + "%\t" + player + " (" + overtimesAvg + ")");
         }
     }
 }
