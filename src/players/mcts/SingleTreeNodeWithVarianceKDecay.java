@@ -37,8 +37,6 @@ public class SingleTreeNodeWithVarianceKDecay
 
     private GameState rootState;
     private StateHeuristic rootStateHeuristic;
-    private double totValueSquare;
-    private double rewardMeanSquare;
 
     SingleTreeNodeWithVarianceKDecay(MCTSParams p, Random rnd, int num_actions, Types.ACTIONS[] actions) {
         this(p, null, -1, rnd, num_actions, actions, 0, null);
@@ -224,9 +222,9 @@ public class SingleTreeNodeWithVarianceKDecay
 
             //double heurisitic = rootStateHeuristic.evaluateState(state);
             double uctValue = childValue +
-                    params.K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon) *
-                            Math.min(1/4, ((totValueSquare)/this.nVisits)- rewardMeanSquare  + Math.sqrt(2*Math.log(this.nVisits + 1)/(child.nVisits + params.epsilon))));
-            //Math.min(1/4, child.Vsa));
+                    params.K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon) *Math.min(1/4, child.Vsa));
+            //+ Math.sqrt(2*Math.log(this.nVisits + 1)/(child.nVisits + params.epsilon)));
+            //
 
             uctValue = Utils.noise(uctValue, params.epsilon, this.m_rnd.nextDouble());     //break ties randomly
 
@@ -265,7 +263,7 @@ public class SingleTreeNodeWithVarianceKDecay
 
         double reward = rootStateHeuristic.evaluateState(state);
         //Decaying reward
-        reward = reward * Math.pow(0.99, thisDepth);
+        reward = reward * Math.pow(params.discount_factor, thisDepth);
         return reward;
     }
 
@@ -316,14 +314,14 @@ public class SingleTreeNodeWithVarianceKDecay
         {
             n.nVisits++;
             n.totValue += result;
-            n.totValueSquare += Math.pow(result, 2);
-            n.rewardMeanSquare = Math.pow(n.totValue/n.nVisits, 2);
 
             // Add the rewards to a list for variance calculation
             if(null == rewards) {
                 rewards = new ArrayList<>();
             }
             rewards.add(result);
+
+            //updateVariance();
 
             if (result < n.bounds[0]) {
                 n.bounds[0] = result;

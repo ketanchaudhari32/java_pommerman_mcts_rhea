@@ -3,16 +3,19 @@
   <component name="ChangeListManager">
     <list default="true" id="76ad6c99-e5e6-44ce-a364-e331a4998d8c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/RunAnkur$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/RunAnkur$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/RunAnkur.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/RunAnkur.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/MCTSParams.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/MCTSParams.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/SingleTreeNodeWithVariance.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/SingleTreeNodeWithVariance.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/SingleTreeNodeWithBiasPrunning.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/SingleTreeNodeWithBiasPrunning.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/SingleTreeNodeWithDecayingReward.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/SingleTreeNodeWithDecayingReward.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/SingleTreeNodeWithVarianceKDecay.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/SingleTreeNodeWithVarianceKDecay.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RunAnkur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RunAnkur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/players/heuristics/AdvancedHeuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/heuristics/AdvancedHeuristic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/players/mcts/MCTSParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/MCTSParams.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithBias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithBias.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/players/mcts/MCTSPlayerWithBiasPrunning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/MCTSPlayerWithBiasPrunning.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/players/mcts/SingleTreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/SingleTreeNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithBiasKDecay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithBiasKDecay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithBiasPrunning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithBiasPrunning.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithVariance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithVariance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithVarianceKDecay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithVarianceKDecay.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +67,7 @@
     <configuration name="RunAnkur" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="RunAnkur" />
       <module name="java_pommerman_mcts_rhea" />
-      <option name="PROGRAM_PARAMETERS" value="0 10 5 -1 6 7 10 11" />
+      <option name="PROGRAM_PARAMETERS" value="0 3 3 1 6 7 12 5" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -83,7 +86,8 @@
       <workItem from="1635365824246" duration="2956000" />
       <workItem from="1635413535863" duration="4666000" />
       <workItem from="1635679585222" duration="12298000" />
-      <workItem from="1635695646706" duration="20395000" />
+      <workItem from="1635695646706" duration="23112000" />
+      <workItem from="1635773652085" duration="17760000" />
     </task>
     <servers />
   </component>

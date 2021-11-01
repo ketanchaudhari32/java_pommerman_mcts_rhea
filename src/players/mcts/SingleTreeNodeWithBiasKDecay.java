@@ -215,7 +215,7 @@ public class SingleTreeNodeWithBiasKDecay
         }
 
         double reward = rootStateHeuristic.evaluateState(state);
-        reward = reward * Math.pow(0.99, thisDepth);
+        reward = reward * Math.pow(params.discount_factor, thisDepth);
         return reward;
     }
 

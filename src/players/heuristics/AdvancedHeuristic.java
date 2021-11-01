@@ -498,10 +498,14 @@ public class AdvancedHeuristic extends StateHeuristic {
                         entry.getKey().equals(Types.TILETYPE.INCRRANGE)){
                     // no need to store just get closest
                     for (Vector2d coords: entry.getValue()){
-                        if (dist.get(coords) < distance){
-                            distance = dist.get(coords);
-                            previousNode = coords;
-                        }
+                        //my code euclidian distance
+                        distance = (int) Math.min(distance, Math.abs(Math.sqrt(Math.pow((myPosition.x-coords.x),2)+Math.pow((myPosition.y-coords.y),2))));
+                        //if(dist.get(position) < distance)
+                        //    distance = dist.get(position);
+                        //if (dist.get(coords) < distance){
+                        //    distance = dist.get(coords);
+                        //    //previousNode = coords;
+                        //}
                     }
                 }
             }

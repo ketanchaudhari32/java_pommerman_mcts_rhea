@@ -9,8 +9,8 @@ import utils.Types;
 import utils.Utils;
 import utils.Vector2d;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class SingleTreeNodeWithBiasPrunning
 {
@@ -27,10 +27,13 @@ public class SingleTreeNodeWithBiasPrunning
     private int fmCallsCount;
 
     //pruning paramas
-    private double k_init = 0.2;
+
     private int param_A = 20;
     private double param_B = 0.8;
     private double threshold;
+    private boolean pruned;
+
+    private ArrayList<SingleTreeNodeWithBiasPrunning> prunned_nodes ;
 
 
     private double Vsa;
@@ -89,7 +92,7 @@ public class SingleTreeNodeWithBiasPrunning
 
             GameState state = rootState.copy();
             ElapsedCpuTimer elapsedTimerIteration = new ElapsedCpuTimer();
-            SingleTreeNodeWithBiasPrunning selected = treePolicy(state);
+            SingleTreeNodeWithBiasPrunning selected = treePolicy(state,numIters);
             double delta = selected.rollOut(state);
             backUp(selected, delta);
 
@@ -112,7 +115,7 @@ public class SingleTreeNodeWithBiasPrunning
         //System.out.println(" ITERS " + numIters);
     }
 
-    private SingleTreeNodeWithBiasPrunning treePolicy(GameState state) {
+    private SingleTreeNodeWithBiasPrunning treePolicy(GameState state, int numIters) {
 
         SingleTreeNodeWithBiasPrunning cur = this;
 
@@ -125,7 +128,7 @@ public class SingleTreeNodeWithBiasPrunning
                 return cur.expand(state);
 
             } else {
-                cur = cur.uct(state);
+                cur = cur.uct(state,numIters);
             }
         }
 
@@ -189,41 +192,63 @@ public class SingleTreeNodeWithBiasPrunning
 
     }
 
-    /**
-     * Update the calculated V(s,a) value
-     * @param state
-     */
-    private void updateVariance(GameState state) {
-
-        double sumOfSquares = 0.0d;
-        for(int i=0; i < this.rewards.size(); i++) {
-            sumOfSquares += Math.pow(rewards.get(i), 2);
-        }
-
-        double sum = 0.0d;
-        for(double reward : rewards) {
-            sum += reward;
-        }
-        //Calculate mean of rewards
-        double meanOfRewards = sum/rewards.size();
-
-        double explorationTerm = Math.sqrt( (2 * Math.log(rewards.size())/this.nVisits));
-        double valueVsa = sumOfSquares/this.nVisits - Math.pow(meanOfRewards, 2) + explorationTerm;
-
-        this.Vsa = valueVsa;
-    }
 
 
 
-    private SingleTreeNodeWithBiasPrunning uct(GameState state) {
+    private SingleTreeNodeWithBiasPrunning uct(GameState state, int numIters) {
         SingleTreeNodeWithBiasPrunning selected = null;
 
         //progressive unpruning
-        threshold = (param_A*(Math.pow(param_B,k_init)));
+        //threshold = (param_A*(Math.pow(param_B,k_init)));
+
+        HashMap<SingleTreeNodeWithBiasPrunning, Double> child_rewards = new HashMap<>();
+
+        if(numIters>100){
+            System.out.println(numIters);
+        for(SingleTreeNodeWithBiasPrunning child : this.children) {
+                //rewards
+                child_rewards.put(child, child.totValue);
+            }
+
+
+            //sort them
+            Map<SingleTreeNodeWithBiasPrunning, Double> sortedMap =
+                    child_rewards.entrySet().stream()
+                            .sorted(Map.Entry.comparingByValue())
+                            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                                    (e1, e2) -> e1, LinkedHashMap::new));
+
+            //find the n least reward children
+            int index = 0;
+            //sortedMap.forEach((key, value) -> {
+            //    if(index>k_init){
+            //        prunned_nodes.add(key);
+            //    }
+            //});
+
+            for (SingleTreeNodeWithBiasPrunning key : sortedMap.keySet()) {
+                if(index<params.k_init){
+                            key.pruned=true;
+                        }
+                else{
+                    key.pruned = false;
+                }
+                index++;
+            }
+
+
+            //list of least reward children.
+        }
+
+
+        //mark each of them pruned=true
+
+
 
         double bestValue = -Double.MAX_VALUE;
         for (SingleTreeNodeWithBiasPrunning child : this.children)
         {
+            if(!child.pruned){
             double hvVal = child.totValue;
             double childValue =  hvVal / (child.nVisits + params.epsilon);
 
@@ -236,14 +261,19 @@ public class SingleTreeNodeWithBiasPrunning
 
             uctValue = Utils.noise(uctValue, params.epsilon, this.m_rnd.nextDouble());     //break ties randomly
 
+            //current_nodes.put(state,uctValue);
+
 
             //System.out.println(uctValue);
             //System.out.println(threshold);
             // small sampleRandom numbers: break ties in unexpanded nodes
-            if (uctValue > threshold) {
+            if (uctValue > bestValue) {
                 selected = child;
-                //bestValue = uctValue;
+                bestValue = uctValue;
             }
+
+            }
+
         }
         if (selected == null)
         {
@@ -254,7 +284,7 @@ public class SingleTreeNodeWithBiasPrunning
         //Roll the state:
         roll(state, actions[selected.childIdx]);
 
-        k_init +=1;
+        //k_init +=1;
 
         return selected;
     }
@@ -413,4 +443,7 @@ public class SingleTreeNodeWithBiasPrunning
 
         return false;
     }
+
+
+
 }

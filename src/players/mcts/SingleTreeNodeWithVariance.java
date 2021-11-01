@@ -26,9 +26,6 @@ public class SingleTreeNodeWithVariance
     private int childIdx;
     private int fmCallsCount;
 
-    private double totValueSquare;
-    private double rewardMeanSquare;
-
     private double Vsa;
     private ArrayList<Double> rewards;
 
@@ -188,7 +185,7 @@ public class SingleTreeNodeWithVariance
      * Update the calculated V(s,a) value
      * @param state
      */
-    private void updateVariance(GameState state) {
+    private void updateVariance() {
 
         double sumOfSquares = 0.0d;
         for(int i=0; i < this.rewards.size(); i++) {
@@ -203,7 +200,7 @@ public class SingleTreeNodeWithVariance
         double meanOfRewards = sum/rewards.size();
 
         double explorationTerm = Math.sqrt( (2 * Math.log(rewards.size())/this.nVisits));
-        double valueVsa = Math.exp(sumOfSquares/this.nVisits - Math.pow(meanOfRewards, 2) + explorationTerm);
+        double valueVsa = sumOfSquares/this.nVisits - Math.pow(meanOfRewards, 2) + explorationTerm;
 
         this.Vsa = valueVsa;
     }
@@ -222,9 +219,9 @@ public class SingleTreeNodeWithVariance
 
             //double heurisitic = rootStateHeuristic.evaluateState(state);
             double uctValue = childValue +
-                    params.K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon) *
-                            Math.min(1/4, ((totValueSquare)/this.nVisits)- rewardMeanSquare  + Math.sqrt(2*Math.log(this.nVisits + 1)/(child.nVisits + params.epsilon))));
-                            //Math.min(1/4, child.Vsa));
+                    params.K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon) *Math.min(1/4, child.Vsa));
+                              //+ Math.sqrt(2*Math.log(this.nVisits + 1)/(child.nVisits + params.epsilon)));
+                            //
 
                     //+ heurisitic/(1 + child.nVisits + params.epsilon);
 
@@ -311,14 +308,16 @@ public class SingleTreeNodeWithVariance
         {
             n.nVisits++;
             n.totValue += result;
-            n.totValueSquare += Math.pow(result, 2);
-            n.rewardMeanSquare = Math.pow(n.totValue/n.nVisits, 2);
+
+
 
             // Add the rewards to a list for variance calculation
             if(null == rewards) {
                 rewards = new ArrayList<>();
             }
             rewards.add(result);
+
+            updateVariance();
 
             if (result < n.bounds[0]) {
                 n.bounds[0] = result;

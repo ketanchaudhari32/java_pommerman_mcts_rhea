@@ -114,8 +114,8 @@ public class RunAnkur {
                     case 5:
                         MCTSParams mctsParams = new MCTSParams();
                         mctsParams.stop_type = mctsParams.STOP_ITERATIONS;
-                        mctsParams.num_iterations = 400;
-                        mctsParams.rollout_depth = 20;
+                        mctsParams.num_iterations = 200;
+                        mctsParams.rollout_depth = 15;
 
                         mctsParams.heuristic_method = mctsParams.ADVANCED_HEURISTIC;
                         p = new MCTSPlayer(seed, playerID++, mctsParams);
@@ -125,8 +125,8 @@ public class RunAnkur {
                     case 6:
                         MCTSParams mctsParams6 = new MCTSParams();
                         mctsParams6.stop_type = mctsParams6.STOP_ITERATIONS;
-                        mctsParams6.num_iterations = 400;
-                        mctsParams6.rollout_depth = 20;
+                        mctsParams6.num_iterations = 200;
+                        mctsParams6.rollout_depth = 15;
 
                         mctsParams6.heuristic_method = mctsParams6.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithVariance(seed, playerID++, mctsParams6);
@@ -136,10 +136,10 @@ public class RunAnkur {
                     case 7:
                         MCTSParams mctsParams7 = new MCTSParams();
                         mctsParams7.stop_type = mctsParams7.STOP_ITERATIONS;
-                        mctsParams7.num_iterations = 400;
-                        mctsParams7.rollout_depth = 20;
+                        mctsParams7.num_iterations = 200;
+                        mctsParams7.rollout_depth = 15;
 
-                        mctsParams7.heuristic_method = mctsParams7.CUSTOM_HEURISTIC;
+                        mctsParams7.heuristic_method = mctsParams7.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithBias(seed, playerID++, mctsParams7);
                         playerStr[i-4] = "MCTSPlayerWithBias";
                         break;
@@ -147,8 +147,8 @@ public class RunAnkur {
                     case 8:
                         MCTSParams mctsParams8 = new MCTSParams();
                         mctsParams8.stop_type = mctsParams8.STOP_ITERATIONS;
-                        mctsParams8.num_iterations = 400;
-                        mctsParams8.rollout_depth = 20;
+                        mctsParams8.num_iterations = 200;
+                        mctsParams8.rollout_depth = 15;
 
                         mctsParams8.heuristic_method = mctsParams8.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithDecayingReward(seed, playerID++, mctsParams8);
@@ -157,8 +157,8 @@ public class RunAnkur {
                     case 9:
                         MCTSParams mctsParams9 = new MCTSParams();
                         mctsParams9.stop_type = mctsParams9.STOP_ITERATIONS;
-                        mctsParams9.num_iterations = 400;
-                        mctsParams9.rollout_depth = 20;
+                        mctsParams9.num_iterations = 200;
+                        mctsParams9.rollout_depth = 15;
 
                         mctsParams9.heuristic_method = mctsParams9.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithConK(seed, playerID++, mctsParams9);
@@ -167,8 +167,8 @@ public class RunAnkur {
                     case 10:
                         MCTSParams mctsParams10 = new MCTSParams();
                         mctsParams10.stop_type = mctsParams10.STOP_ITERATIONS;
-                        mctsParams10.num_iterations = 400;
-                        mctsParams10.rollout_depth = 20;
+                        mctsParams10.num_iterations = 200;
+                        mctsParams10.rollout_depth = 15;
 
                         mctsParams10.heuristic_method = mctsParams10.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithBiasKDecay(seed, playerID++, mctsParams10);
@@ -177,8 +177,8 @@ public class RunAnkur {
                     case 11:
                         MCTSParams mctsParams11 = new MCTSParams();
                         mctsParams11.stop_type = mctsParams11.STOP_ITERATIONS;
-                        mctsParams11.num_iterations = 400;
-                        mctsParams11.rollout_depth = 20;
+                        mctsParams11.num_iterations = 200;
+                        mctsParams11.rollout_depth = 15;
 
                         mctsParams11.heuristic_method = mctsParams11.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithBiasKDecay(seed, playerID++, mctsParams11);
@@ -186,13 +186,24 @@ public class RunAnkur {
                     case 12:
                         MCTSParams mctsParams12 = new MCTSParams();
                         mctsParams12.stop_type = mctsParams12.STOP_ITERATIONS;
-                        mctsParams12.num_iterations = 400;
-                        mctsParams12.rollout_depth = 20;
+                        mctsParams12.num_iterations = 200;
+                        mctsParams12.rollout_depth = 15;
 
                         mctsParams12.heuristic_method = mctsParams12.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithBiasPrunning(seed, playerID++, mctsParams12);
-                        playerStr[i-4] = "MCTSPlayerWithvarianceKDecay";
+                        playerStr[i-4] = "MCTSPlayerWithBiasPrunning";
                         break;
+                    case 13:
+                        MCTSParams mctsParams13 = new MCTSParams();
+                        mctsParams13.stop_type = mctsParams13.STOP_ITERATIONS;
+                        mctsParams13.num_iterations = 200;
+                        mctsParams13.rollout_depth = 15;
+
+                        mctsParams13.heuristic_method = mctsParams13.ADVANCED_HEURISTIC;
+                        p = new MCTSPlayerWithVariancePrunning(seed, playerID++, mctsParams13);
+                        playerStr[i-4] = "MCTSPlayerWithBiasPrunning";
+                        break;
+
                     default:
                         System.out.println("WARNING: Invalid agent ID: " + agentType );
                 }

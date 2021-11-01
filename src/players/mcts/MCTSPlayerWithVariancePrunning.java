@@ -9,7 +9,7 @@ import utils.Types;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class MCTSPlayerWithBiasPrunning extends ParameterizedPlayer {
+public class MCTSPlayerWithVariancePrunning extends ParameterizedPlayer {
 
     /**
      * Random generator.
@@ -26,11 +26,11 @@ public class MCTSPlayerWithBiasPrunning extends ParameterizedPlayer {
      */
     public MCTSParams params;
 
-    public MCTSPlayerWithBiasPrunning(long seed, int id) {
+    public MCTSPlayerWithVariancePrunning(long seed, int id) {
         this(seed, id, new MCTSParams());
     }
 
-    public MCTSPlayerWithBiasPrunning(long seed, int id, MCTSParams params) {
+    public MCTSPlayerWithVariancePrunning(long seed, int id, MCTSParams params) {
         super(seed, id, params);
         reset(seed, id);
 
@@ -68,7 +68,8 @@ public class MCTSPlayerWithBiasPrunning extends ParameterizedPlayer {
         // Number of actions available
         int num_actions = actions.length;
 
-        SingleTreeNodeWithBias m_root = new SingleTreeNodeWithBias(params, m_rnd, num_actions, actions);
+        // Root of the tree
+        SingleTreeNodeWithVariancePrunning m_root = new SingleTreeNodeWithVariancePrunning(params, m_rnd, num_actions, actions);
         m_root.setRootGameState(gs);
 
         //Determine the action using MCTS...
@@ -93,6 +94,6 @@ public class MCTSPlayerWithBiasPrunning extends ParameterizedPlayer {
 
     @Override
     public Player copy() {
-        return new MCTSPlayerWithBiasPrunning(seed, playerID, params);
+        return new MCTSPlayerWithVariancePrunning(seed, playerID, params);
     }
 }
