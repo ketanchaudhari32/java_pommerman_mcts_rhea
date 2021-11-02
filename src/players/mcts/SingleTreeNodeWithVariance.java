@@ -112,9 +112,7 @@ public class SingleTreeNodeWithVariance
         while (!state.isTerminal() && cur.m_depth < params.rollout_depth)
         {
             if (cur.notFullyExpanded()) {
-
                 // TODO:Implement First Play Urgency
-
                 return cur.expand(state);
 
             } else {
@@ -125,6 +123,7 @@ public class SingleTreeNodeWithVariance
         return cur;
     }
 
+    //TODO: This is not yet implemented fully
     public int FPU_Selection(GameState state) {
         // Apply First Play urgency
         ArrayList<Types.ACTIONS> actionsAll = Types.ACTIONS.all();
@@ -183,9 +182,9 @@ public class SingleTreeNodeWithVariance
 
     /**
      * Update the calculated V(s,a) value
-     * @param state
+     *
      */
-    private void updateVariance(GameState state) {
+    private void updateVariance() {
 
         double sumOfSquares = 0.0d;
         for(int i=0; i < this.rewards.size(); i++) {
@@ -218,8 +217,10 @@ public class SingleTreeNodeWithVariance
             childValue = Utils.normalise(childValue, bounds[0], bounds[1]);
 
             //double heurisitic = rootStateHeuristic.evaluateState(state);
+
+            // UCB1-TUNED is applied here, with the Variance
             double uctValue = childValue +
-                    params.K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon)) * Math.min(1/4, child.Vsa);
+                    params.K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon) * Math.min(0.25D, child.Vsa));
                     //+ heurisitic/(1 + child.nVisits + params.epsilon);
 
             uctValue = Utils.noise(uctValue, params.epsilon, this.m_rnd.nextDouble());     //break ties randomly
@@ -311,6 +312,7 @@ public class SingleTreeNodeWithVariance
                 rewards = new ArrayList<>();
             }
             rewards.add(result);
+            updateVariance();
 
             if (result < n.bounds[0]) {
                 n.bounds[0] = result;

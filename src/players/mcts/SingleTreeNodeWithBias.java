@@ -218,10 +218,10 @@ public class SingleTreeNodeWithBias
 
             childValue = Utils.normalise(childValue, bounds[0], bounds[1]);
 
-            double heurisitic = rootStateHeuristic.evaluateState(state);
+            double heuristic = rootStateHeuristic.evaluateState(state);
             double uctValue = childValue +
                     params.K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon)) // * Math.min(1/4, child.Vsa)
-                    + heurisitic/(1 + child.nVisits + params.epsilon);
+                    + heuristic/(1 + child.nVisits + params.epsilon);
 
             uctValue = Utils.noise(uctValue, params.epsilon, this.m_rnd.nextDouble());     //break ties randomly
 
