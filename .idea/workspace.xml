@@ -3,11 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="76ad6c99-e5e6-44ce-a364-e331a4998d8c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/SingleTreeNodeWithVariancePrunning.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/SingleTreeNodeWithVariancePrunning.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RunAnkur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RunAnkur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/players/mcts/MCTSParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/MCTSParams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/SingleTreeNodeWithBiasPrunning.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/SingleTreeNodeWithBiasPrunning.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/players/heuristics/AdvancedHeuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/heuristics/AdvancedHeuristic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithBias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithBias.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithBiasPrunning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithBiasPrunning.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithVariancePrunning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithVariancePrunning.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test param.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test param.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +60,7 @@
     <configuration name="RunAnkur" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="RunAnkur" />
       <module name="java_pommerman_mcts_rhea" />
-      <option name="PROGRAM_PARAMETERS" value="0 10 5 2 6 7 12 13" />
+      <option name="PROGRAM_PARAMETERS" value="0 10 5 2 5 6 7 12" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -81,7 +81,7 @@
       <workItem from="1635679585222" duration="12298000" />
       <workItem from="1635695646706" duration="23112000" />
       <workItem from="1635773652085" duration="18283000" />
-      <workItem from="1635802330605" duration="5630000" />
+      <workItem from="1635802330605" duration="11042000" />
     </task>
     <servers />
   </component>

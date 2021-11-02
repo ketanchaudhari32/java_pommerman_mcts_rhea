@@ -117,7 +117,6 @@ public class SingleTreeNodeWithBiasPrunning {
         while (!state.isTerminal() && cur.m_depth < params.rollout_depth) {
             if (cur.notFullyExpanded()) {
 
-                // TODO:Implement First Play Urgency
 
                 return cur.expand(state);
 
@@ -127,18 +126,6 @@ public class SingleTreeNodeWithBiasPrunning {
         }
 
         return cur;
-    }
-
-    //TODO:
-    public int FPU_Selection(GameState state) {
-        // Apply First Play urgency
-        ArrayList<Types.ACTIONS> actionsAll = Types.ACTIONS.all();
-
-        for (Types.ACTIONS action : actionsAll) {
-            //children[action].
-        }
-
-        return 0;
     }
 
 
@@ -216,7 +203,7 @@ public class SingleTreeNodeWithBiasPrunning {
                 if (index > params.k_init) {
                     //mark each of them pruned=true
                     key.pruned = true;
-                    //sortedMap.remove(key);
+                    sortedMap.remove(key);
 
                 } else {
                     key.pruned = false;
@@ -229,28 +216,28 @@ public class SingleTreeNodeWithBiasPrunning {
         }
 
 
-        for (SingleTreeNodeWithBiasPrunning child : this.children) {
-            if (!child.pruned) {
-                double hvVal = child.totValue;
-                double childValue = hvVal / (child.nVisits + params.epsilon);
+        for (SingleTreeNodeWithBiasPrunning child : sortedMap.keySet()) {
+            //if (!child.pruned) {
+            double hvVal = child.totValue;
+            double childValue = hvVal / (child.nVisits + params.epsilon);
 
-                childValue = Utils.normalise(childValue, bounds[0], bounds[1]);
+            childValue = Utils.normalise(childValue, bounds[0], bounds[1]);
 
-                double heurisitic = rootStateHeuristic.evaluateState(state);
-                double uctValue = childValue +
-                        params.K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon)) // * Math.min(1/4, child.Vsa)
-                        + heurisitic / (1 + child.nVisits + params.epsilon);
+            double heurisitic = rootStateHeuristic.evaluateState(state);
+            double uctValue = childValue +
+                    params.K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + params.epsilon)) // * Math.min(1/4, child.Vsa)
+                    + heurisitic / (1 + child.nVisits + params.epsilon);
 
-                uctValue = Utils.noise(uctValue, params.epsilon, this.m_rnd.nextDouble());     //break ties randomly
+            uctValue = Utils.noise(uctValue, params.epsilon, this.m_rnd.nextDouble());     //break ties randomly
 
-                if (uctValue > bestValue) {
-                    selected = child;
-                    bestValue = uctValue;
-                }
-
+            if (uctValue > bestValue) {
+                selected = child;
+                bestValue = uctValue;
             }
 
         }
+
+        //}
         if (selected == null) {
             throw new RuntimeException("Warning! returning null: " + bestValue + " : " + this.children.length + " " +
                     +bounds[0] + " " + bounds[1]);

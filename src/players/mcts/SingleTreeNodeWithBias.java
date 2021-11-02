@@ -120,7 +120,6 @@ public class SingleTreeNodeWithBias
         {
             if (cur.notFullyExpanded()) {
 
-                // TODO:Implement First Play Urgency
 
                 return cur.expand(state);
 
@@ -132,17 +131,6 @@ public class SingleTreeNodeWithBias
         return cur;
     }
 
-    //TODO:
-    public int FPU_Selection(GameState state) {
-        // Apply First Play urgency
-        ArrayList<Types.ACTIONS> actionsAll = Types.ACTIONS.all();
-
-        for (Types.ACTIONS action : actionsAll) {
-            //children[action].
-        }
-
-        return 0;
-    }
 
 
     private SingleTreeNodeWithBias expand(GameState state) {
