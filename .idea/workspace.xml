@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="76ad6c99-e5e6-44ce-a364-e331a4998d8c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/SingleTreeNodeWithBiasPrunning.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/SingleTreeNodeWithBiasPrunning.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/players/heuristics/AdvancedHeuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/heuristics/AdvancedHeuristic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithBias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithBias.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithBiasPrunning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithBiasPrunning.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/MCTSParams.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java_pommerman_mcts_rhea/players/mcts/MCTSParams.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/players/mcts/MCTSParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/MCTSParams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithVariance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/players/mcts/SingleTreeNodeWithVariance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test param.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test param.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -82,6 +81,9 @@
       <workItem from="1635695646706" duration="23112000" />
       <workItem from="1635773652085" duration="18283000" />
       <workItem from="1635802330605" duration="11042000" />
+      <workItem from="1635849801340" duration="1740000" />
+      <workItem from="1635862299322" duration="2056000" />
+      <workItem from="1635870649386" duration="4858000" />
     </task>
     <servers />
   </component>

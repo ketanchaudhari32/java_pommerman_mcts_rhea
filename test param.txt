@@ -8,7 +8,7 @@ N 	Win 	Tie 	Loss 	Player (overtime average)
 
 
 FFA_MCTS-VAR_MCTS-Bias_MCTS_MCTS-BiasPruning_Observability_2
-0-10-5-2-5-6-7-12 [MCTS,MCTSPlayerWithVariance,MCTSPlayerWithBias,MCTSPlayerWithBiasPrunning]
+0 10 5 2 5 6 7 12 [MCTS,MCTSPlayerWithVariance,MCTSPlayerWithBias,MCTSPlayerWithBiasPrunning]
 
 
 

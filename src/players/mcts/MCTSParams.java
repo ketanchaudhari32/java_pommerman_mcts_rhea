@@ -35,7 +35,7 @@ public class MCTSParams implements ParameterSet {
     public int num_fmcalls = 1500;
     public int num_time = 40;
 
-    public double discount_factor = 0.5;
+    public double discount_factor = 0.9;
 
     //pruning paramas
     public int k_init = 4;
