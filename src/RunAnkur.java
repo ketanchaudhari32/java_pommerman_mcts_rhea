@@ -180,6 +180,7 @@ public class RunAnkur {
                         mctsParams11.heuristic_method = mctsParams11.ADVANCED_HEURISTIC;
                         p = new MCTSPlayerWithBiasKDecay(seed, playerID++, mctsParams11);
                         playerStr[i - 4] = "MCTSPlayerWithvarianceKDecay";
+                        break;
                     case 12:
                         MCTSParams mctsParams12 = new MCTSParams();
                         mctsParams12.stop_type = mctsParams12.STOP_ITERATIONS;
@@ -190,6 +191,7 @@ public class RunAnkur {
                         p = new MCTSPlayerWithBiasPrunning(seed, playerID++, mctsParams12);
                         playerStr[i - 4] = "MCTSPlayerWithBiasPrunning";
                         break;
+
                     case 13:
                         MCTSParams mctsParams13 = new MCTSParams();
                         mctsParams13.stop_type = mctsParams13.STOP_ITERATIONS;

@@ -230,7 +230,7 @@ public class SingleTreeNodeWithVariancePrunning {
             //list of least reward children.
         }
 
-        for (SingleTreeNodeWithVariancePrunning child : this.children) {
+        for (SingleTreeNodeWithVariancePrunning child : sortedMap.keySet()) {
             if (!child.pruned) {
                 double hvVal = child.totValue;
                 double childValue = hvVal / (child.nVisits + params.epsilon);

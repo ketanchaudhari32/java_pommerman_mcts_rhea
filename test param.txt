@@ -9,60 +9,113 @@ N 	Win 	Tie 	Loss 	Player (overtime average)
 
 FFA_MCTS-VAR_MCTS-Bias_MCTS_MCTS-BiasPruning_Observability_2
 0 10 5 2 5 6 7 12 [MCTS,MCTSPlayerWithVariance,MCTSPlayerWithBias,MCTSPlayerWithBiasPrunning]
-
+N 	Win 	Tie 	Loss 	Player (overtime average)
+50	10.0%	34.0%	56.0%	players.mcts.MCTSPlayer (1.0)
+50	8.0%	30.0%	62.0%	players.mcts.MCTSPlayerWithVariance (2.0)
+50	16.0%	38.0%	46.0%	players.mcts.MCTSPlayerWithBias (459.1)
+50	8.0%	36.0%	56.0%	players.mcts.MCTSPlayerWithBiasPrunning (578.2)
 
 
 FFA_MCTS-VAR_MCTS-Bias_MCTS_MCTS-BiasPruning_Observability -1
-0 10 5 -1 5 6 7 12
+0-10-5--1-5-6-7-12 [MCTS,MCTSPlayerWithVariance,MCTSPlayerWithBias,MCTSPlayerWithBiasPrunning]
+N 	Win 	Tie 	Loss 	Player (overtime average)
+50	32.0%	16.0%	52.0%	players.mcts.MCTSPlayer (47.12)
+50	34.0%	24.0%	42.0%	players.mcts.MCTSPlayerWithVariance (84.64)
+50	4.0%	8.0%	88.0%	players.mcts.MCTSPlayerWithBias (13808.0)
+50	4.0%	12.0%	84.0%	players.mcts.MCTSPlayerWithBiasPrunning (13891.0)
+
 
 FFA_MCTS-VAR_MCTS-Bias_MCTS_MCTS-BiasPruning_Observability 0
-0 10 5 0 5 6 7 12
+0-10-5-0-5-6-7-12 [MCTS,MCTSPlayerWithVariance,MCTSPlayerWithBias,MCTSPlayerWithBiasPrunning]
+N 	Win 	Tie 	Loss 	Player (overtime average)
+50	26.0%	0.0%	74.0%	players.mcts.MCTSPlayer (2.0)
+50	20.0%	0.0%	80.0%	players.mcts.MCTSPlayerWithVariance (1.0)
+50	18.0%	0.0%	82.0%	players.mcts.MCTSPlayerWithBias (10.34)
+50	36.0%	0.0%	64.0%	players.mcts.MCTSPlayerWithBiasPrunning (13.22)
+
 
 FFA_MCTS-VAR_MCTS-Bias_MCTS_MCTS-BiasPruning_Observability 1
-0 10 5 1 5 6 7 12
+0-10-5-1-5-6-7-12 [MCTS,MCTSPlayerWithVariance,MCTSPlayerWithBias,MCTSPlayerWithBiasPrunning]
+N 	Win 	Tie 	Loss 	Player (overtime average)
+50	14.0%	10.0%	76.0%	players.mcts.MCTSPlayer (15.66)
+50	22.0%	8.0%	70.0%	players.mcts.MCTSPlayerWithVariance (7.48)
+50	18.0%	4.0%	78.0%	players.mcts.MCTSPlayerWithBias (268.72)
+50	30.0%	10.0%	60.0%	players.mcts.MCTSPlayerWithBiasPrunning (252.32)
 
 
 
 
 
-TEAM_[MCTS-VAR_MCTS-Bias]_[MCTS_MCTS-BiasPruning]_Observability_-1
-1 10 5 -1 6-7 5-13
-
-TEAM_[MCTS-VAR_MCTS]_[MCTS-Bias_MCTS-BiasPruning]_Observability_-1
-1 10 5 -1 6-5 7-12
-
-TEAM_[MCTS-VAR_MCTS-VAR]_[MCTS-Bias_MCTS-Bias]_Observability_-1
-1 10 5 -1 7-7 6-6
-
-TEAM_[MCTS_MCTS]_[MCTS-BiasPruning_MCTS-BiasPruning]_Observability_-1
-1 10 5 -1 5-5 12-12
 
 
+TEAM_[MCTSVariance_MCTS]VS[MCTSBias_MCTSBiasPruning]_Observability_-1
+1-10-5--1-6-5-7-12 [MCTSPlayerWithVariance,MCTS,MCTSPlayerWithBias,MCTSPlayerWithBiasPrunning]
 
 
-TEAM_[MCTS-VAR_MCTS-Bias]_[MCTS-VARprun_MCTS-BiasPruning]_Observability_2
-1 10 5 2 6-7 12-13
+TEAM_[MCTSBias_MCTS]VS[MCTSVariance_MCTSBiasPruning]_Observability_-1
+1 10 5 -1 7 6 5 12
 
-TEAM_[MCTS-VAR_MCTS-VARprun]_[MCTS-Bias_MCTS-BiasPruning]_Observability_2
-1 10 5 2 6-13 7-12
+TEAM_[MCTS_MCTS]VS[MCTSBias_MCTSBias]_Observability_-1
+1 10 5 -1 5 7 5 7
 
-TEAM_[MCTS-VAR_MCTS-VAR]_[MCTS-Bias_MCTS-Bias]_Observability_2
-1 10 5 2 7-7 6-6
+TEAM_[MCTSVariance_MCTSVariance]VS[MCTS-BiasPruning_MCTS-BiasPruning]_Observability_-1
+1 10 5 -1 6 12 6 12
 
-TEAM_[MCTS-VARprun_MCTS-VARprun]_[MCTS-BiasPruning_MCTS-BiasPruning]_Observability_2
-1 10 5 2 13-13 12-12
+TEAM_[MCTSVariance_MCTSVariance]VS[MCTSBias_MCTSBias]_Observability_-1
+1 10 5 -1 6 7 6 7
+
+TEAM_[MCTSBias_MCTSBias]VS[MCTS-BiasPruning_MCTS-BiasPruning]_Observability_-1
+1 10 5 -1 7 12 7 12
 
 
 
 
-TEAM_[MCTS-VAR_MCTS-Bias]_[MCTS-VARprun_MCTS-BiasPruning]_Observability_0
-1 10 5 0 6-7 12-13
 
-TEAM_[MCTS-VAR_MCTS-VARprun]_[MCTS-Bias_MCTS-BiasPruning]_Observability_0
-1 10 5 0 6-13 7-12
 
-TEAM_[MCTS-VAR_MCTS-VAR]_[MCTS-Bias_MCTS-Bias]_Observability_0
-1 10 5 0 7-7 6-6
+TEAM_[MCTSVariance_MCTS]VS[MCTSBias_MCTSBiasPruning]_Observability_2
+1-10-5-2-6-7-5-12 [MCTSPlayerWithVariance,MCTSPlayerWithBias,MCTS,MCTSPlayerWithBiasPrunning]
+N 	Win 	Tie 	Loss 	Player (overtime average)
+50	76.0%	14.0%	10.0%	players.mcts.MCTSPlayerWithVariance (653.34)
+50	10.0%	14.0%	76.0%	players.mcts.MCTSPlayerWithBias (10433.46)
+50	76.0%	14.0%	10.0%	players.mcts.MCTSPlayer (286.86)
+50	10.0%	14.0%	76.0%	players.mcts.MCTSPlayerWithBiasPrunning (9686.08)
 
-TEAM_[MCTS-VARprun_MCTS-VARprun]_[MCTS-BiasPruning_MCTS-BiasPruning]_Observability_0
-1 10 5 0 13-13 12-12
+TEAM_[MCTSBias_MCTS]VS[MCTSVariance_MCTSBiasPruning]_Observability_2
+1-10-5-2-7-6-5-12 [MCTSPlayerWithBias,MCTSPlayerWithVariance,MCTS,MCTSPlayerWithBiasPrunning]
+
+TEAM_[MCTS_MCTS]VS[MCTSBias_MCTSBias]_Observability_2
+1-10-5-2-5-7-5-7 [MCTS,MCTSPlayerWithBias,MCTS,MCTSPlayerWithBias]
+
+TEAM_[MCTSVariance_MCTSVariance]VS[MCTSBiasPruning_MCTSBiasPruning]_Observability_2
+1-10-5-2-6-12-6-12 [MCTSPlayerWithVariance,MCTSPlayerWithBiasPrunning,MCTSPlayerWithVariance,MCTSPlayerWithBiasPrunning]
+
+TEAM_[MCTSVariance_MCTSVariance]VS[MCTSBias_MCTSBias]_Observability_2
+1 10 5 2 6 7 6 7
+
+TEAM_[MCTSBias_MCTSBias]VS[MCTS-BiasPruning_MCTS-BiasPruning]_Observability_2
+1 10 5 2 7 12 7 12
+
+
+
+
+
+
+
+
+TEAM_[MCTSVariance_MCTS]VS[MCTSBias_MCTSBiasPruning]_Observability_0
+1 10 5 0 6 7 5 12
+
+TEAM_[MCTSBias_MCTS]VS[MCTSVariance_MCTSBiasPruning]_Observability_0
+1 10 5 0 7 6 5 12
+
+TEAM_[MCTS_MCTS]VS[MCTSBias_MCTSBias]_Observability_0
+1 10 5 0 5 7 5 7
+
+TEAM_[MCTSVariance_MCTSVariance]VS[MCTSBiasPruning_MCTSBiasPruning]_Observability_0
+1 10 5 0 6 12 6 12
+
+TEAM_[MCTSVariance_MCTSVariance]VS[MCTSBias_MCTSBias]_Observability_0
+1 10 5 0 6 7 6 7
+
+TEAM_[MCTSBias_MCTSBias]VS[MCTS-BiasPruning_MCTS-BiasPruning]_Observability_0
+1 10 5 0 7 12 7 12
