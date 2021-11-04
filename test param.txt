@@ -43,35 +43,6 @@ N 	Win 	Tie 	Loss 	Player (overtime average)
 50	30.0%	10.0%	60.0%	players.mcts.MCTSPlayerWithBiasPrunning (252.32)
 
 
-
-
-
-
-
-TEAM_[MCTSVariance_MCTS]VS[MCTSBias_MCTSBiasPruning]_Observability_-1
-1-10-5--1-6-5-7-12 [MCTSPlayerWithVariance,MCTS,MCTSPlayerWithBias,MCTSPlayerWithBiasPrunning]
-
-
-TEAM_[MCTSBias_MCTS]VS[MCTSVariance_MCTSBiasPruning]_Observability_-1
-1 10 5 -1 7 6 5 12
-
-TEAM_[MCTS_MCTS]VS[MCTSBias_MCTSBias]_Observability_-1
-1 10 5 -1 5 7 5 7
-
-TEAM_[MCTSVariance_MCTSVariance]VS[MCTS-BiasPruning_MCTS-BiasPruning]_Observability_-1
-1 10 5 -1 6 12 6 12
-
-TEAM_[MCTSVariance_MCTSVariance]VS[MCTSBias_MCTSBias]_Observability_-1
-1 10 5 -1 6 7 6 7
-
-TEAM_[MCTSBias_MCTSBias]VS[MCTS-BiasPruning_MCTS-BiasPruning]_Observability_-1
-1 10 5 -1 7 12 7 12
-
-
-
-
-
-
 TEAM_[MCTSVariance_MCTS]VS[MCTSBias_MCTSBiasPruning]_Observability_2
 1-10-5-2-6-7-5-12 [MCTSPlayerWithVariance,MCTSPlayerWithBias,MCTS,MCTSPlayerWithBiasPrunning]
 N 	Win 	Tie 	Loss 	Player (overtime average)
@@ -82,40 +53,59 @@ N 	Win 	Tie 	Loss 	Player (overtime average)
 
 TEAM_[MCTSBias_MCTS]VS[MCTSVariance_MCTSBiasPruning]_Observability_2
 1-10-5-2-7-6-5-12 [MCTSPlayerWithBias,MCTSPlayerWithVariance,MCTS,MCTSPlayerWithBiasPrunning]
+N 	Win 	Tie 	Loss 	Player (overtime average)
+50	38.0%	18.0%	44.0%	players.mcts.MCTSPlayerWithBias (14265.28)
+50	44.0%	18.0%	38.0%	players.mcts.MCTSPlayerWithVariance (509.64)
+50	38.0%	18.0%	44.0%	players.mcts.MCTSPlayer (211.06)
+50	44.0%	18.0%	38.0%	players.mcts.MCTSPlayerWithBiasPrunning (14164.7)
+
 
 TEAM_[MCTS_MCTS]VS[MCTSBias_MCTSBias]_Observability_2
 1-10-5-2-5-7-5-7 [MCTS,MCTSPlayerWithBias,MCTS,MCTSPlayerWithBias]
+N 	Win 	Tie 	Loss 	Player (overtime average)
+50	100.0%	0.0%	0.0%	players.mcts.MCTSPlayer (187.34)
+50	0.0%	0.0%	100.0%	players.mcts.MCTSPlayerWithBias (14646.1)
+50	100.0%	0.0%	0.0%	players.mcts.MCTSPlayer (196.32)
+50	0.0%	0.0%	100.0%	players.mcts.MCTSPlayerWithBias (14698.66)
+
 
 TEAM_[MCTSVariance_MCTSVariance]VS[MCTSBiasPruning_MCTSBiasPruning]_Observability_2
 1-10-5-2-6-12-6-12 [MCTSPlayerWithVariance,MCTSPlayerWithBiasPrunning,MCTSPlayerWithVariance,MCTSPlayerWithBiasPrunning]
+N 	Win 	Tie 	Loss 	Player (overtime average)
+50	60.0%	14.0%	26.0%	players.mcts.MCTSPlayerWithVariance (506.78)
+50	26.0%	14.0%	60.0%	players.mcts.MCTSPlayerWithBiasPrunning (5712.36)
+50	60.0%	14.0%	26.0%	players.mcts.MCTSPlayerWithVariance (580.1)
+50	26.0%	14.0%	60.0%	players.mcts.MCTSPlayerWithBiasPrunning (6208.76)
 
 TEAM_[MCTSVariance_MCTSVariance]VS[MCTSBias_MCTSBias]_Observability_2
-1 10 5 2 6 7 6 7
+1-10-5-2-6-7-6-7 [MCTSPlayerWithVariance,MCTSPlayerWithBias,MCTSPlayerWithVariance,MCTSPlayerWithBias]
+N 	Win 	Tie 	Loss 	Player (overtime average)
+50	100.0%	0.0%	0.0%	players.mcts.MCTSPlayerWithVariance (463.5)
+50	0.0%	0.0%	100.0%	players.mcts.MCTSPlayerWithBias (13486.12)
+50	100.0%	0.0%	0.0%	players.mcts.MCTSPlayerWithVariance (468.26)
+50	0.0%	0.0%	100.0%	players.mcts.MCTSPlayerWithBias (13154.22)
 
-TEAM_[MCTSBias_MCTSBias]VS[MCTS-BiasPruning_MCTS-BiasPruning]_Observability_2
-1 10 5 2 7 12 7 12
-
-
-
-
-
-
-
-
-TEAM_[MCTSVariance_MCTS]VS[MCTSBias_MCTSBiasPruning]_Observability_0
-1 10 5 0 6 7 5 12
-
-TEAM_[MCTSBias_MCTS]VS[MCTSVariance_MCTSBiasPruning]_Observability_0
-1 10 5 0 7 6 5 12
-
-TEAM_[MCTS_MCTS]VS[MCTSBias_MCTSBias]_Observability_0
-1 10 5 0 5 7 5 7
-
-TEAM_[MCTSVariance_MCTSVariance]VS[MCTSBiasPruning_MCTSBiasPruning]_Observability_0
-1 10 5 0 6 12 6 12
 
 TEAM_[MCTSVariance_MCTSVariance]VS[MCTSBias_MCTSBias]_Observability_0
-1 10 5 0 6 7 6 7
+1-10-5-0-6-7-6-7 [MCTSPlayerWithVariance,MCTSPlayerWithBias,MCTSPlayerWithVariance,MCTSPlayerWithBias]
+N 	Win 	Tie 	Loss 	Player (overtime average)
+50	34.0%	28.0%	38.0%	players.mcts.MCTSPlayerWithVariance (1.0)
+50	38.0%	28.0%	34.0%	players.mcts.MCTSPlayerWithBias (1.0)
+50	34.0%	28.0%	38.0%	players.mcts.MCTSPlayerWithVariance (0.0)
+50	38.0%	28.0%	34.0%	players.mcts.MCTSPlayerWithBias (0.0)
 
 TEAM_[MCTSBias_MCTSBias]VS[MCTS-BiasPruning_MCTS-BiasPruning]_Observability_0
-1 10 5 0 7 12 7 12
+1-10-5-0-7-12-7-12 [MCTSPlayerWithBias,MCTSPlayerWithBiasPrunning,MCTSPlayerWithBias,MCTSPlayerWithBiasPrunning]
+N 	Win 	Tie 	Loss 	Player (overtime average)
+50	28.0%	28.0%	44.0%	players.mcts.MCTSPlayerWithBias (191.86)
+50	44.0%	28.0%	28.0%	players.mcts.MCTSPlayerWithBiasPrunning (205.44)
+50	28.0%	28.0%	44.0%	players.mcts.MCTSPlayerWithBias (186.08)
+50	44.0%	28.0%	28.0%	players.mcts.MCTSPlayerWithBiasPrunning (197.62)
+
+TEAM_[MCTSPlayerWithVariance_MCTS]VS[MCTSPlayerWithBias-BiasPruning_MCTSPlayerWithBiasPrunning]_Observability_0
+1-10-5-0-6-7-5-12 [MCTSPlayerWithVariance,MCTSPlayerWithBias,MCTS,MCTSPlayerWithBiasPrunning]
+N 	Win 	Tie 	Loss 	Player (overtime average)
+50	4.0%	8.0%	88.0%	players.mcts.MCTSPlayerWithVariance (76.08)
+50	88.0%	8.0%	4.0%	players.mcts.MCTSPlayerWithBias (5985.76)
+50	4.0%	8.0%	88.0%	players.mcts.MCTSPlayer (36.98)
+50	88.0%	8.0%	4.0%	players.mcts.MCTSPlayerWithBiasPrunning (5845.18)
